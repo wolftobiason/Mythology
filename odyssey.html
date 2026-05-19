@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ΟΔΥΣΣΕΙΑ — The Long Way Home</title>
+<title>ΟΔΥΣΣΕΙΑ: The Long Way Home</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -174,67 +174,67 @@ const landmasses = [
 ];
 
 const stops = [
-  { name:'Troy — Ilium', lon:26.2, lat:39.9, yearsAdd:0,
+  { name:'Troy / Ilium', lon:26.2, lat:39.9, yearsAdd:0,
     text:'The war is over. Troy burns. Ten years of fighting, and now your twelve ships carry 600 men and plunder westward. You do not yet know that taunting the blinded Polyphemus will earn you the hatred of his father, Poseidon, who rules every wave you must cross.',
-    lore:'<strong>The Trojan War</strong>The war lasted ten years — provoked, in myth, when Paris of Troy carried off Helen, wife of the Spartan king Menelaus. The Greeks (Achaeans) assembled a coalition fleet under Agamemnon. Odysseus was among its cleverest commanders; it was his stratagem of the wooden horse that finally broke Troy. Homer\'s <em>Iliad</em> covers only a few weeks near the war\'s end. The <em>Odyssey</em> begins where the <em>Iliad</em> leaves off: the sack of Troy, and the long, cursed journey home.',
-    quote:'Tell me, Muse, of the man of many wiles, who wandered far and wide after he sacked the sacred citadel of Troy.<cite>— Homer, Odyssey Book I (tr. Fagles)</cite>' },
-  { name:'Ismarus — Cicones', lon:25.6, lat:41.0, crewLost:72, yearsAdd:0.1,
-    text:'Your men raid Ismarus and feast on the beach. You order departure — the Cicones will return with allies. They ignore you. At dawn, six men from every ship die before you flee. Seventy-two dead, and you have not yet left familiar waters. First lesson: soldiers who survive a war become the hardest men to command.',
-    lore:'<strong>The Cicones</strong>The Cicones were a Thracian people, allies of Troy. Homer uses their raid as the first test of Odysseus\'s authority: he gives the right order, his men refuse it, and people die. It is also the first of many moments where the crew\'s hunger — for plunder, food, or ease — works against survival. The episode sets the pattern for everything that follows.',
-    quote:'Six benches were left empty in every ship / from the long voyage out and the sharp fighting.<cite>— Homer, Odyssey Book IX (tr. Fitzgerald)</cite>' },
+    lore:'<strong>The Trojan War</strong>The war lasted ten years, provoked, in myth, when Paris of Troy carried off Helen, wife of the Spartan king Menelaus. The Greeks (Achaeans) assembled a coalition fleet under Agamemnon. Odysseus was among its cleverest commanders; it was his stratagem of the wooden horse that finally broke Troy. Homer\'s <em>Iliad</em> covers only a few weeks near the war\'s end. The <em>Odyssey</em> begins where the <em>Iliad</em> leaves off: the sack of Troy, and the long, cursed journey home.',
+    quote:'Tell me, Muse, of the man of many wiles, who wandered far and wide after he sacked the sacred citadel of Troy.<cite>Homer, Odyssey Book I (tr. Fagles)</cite>' },
+  { name:'Ismarus / Cicones', lon:25.6, lat:41.0, crewLost:72, yearsAdd:0.1,
+    text:'Your men raid Ismarus and feast on the beach. You order departure, the Cicones will return with allies. They ignore you. At dawn, six men from every ship die before you flee. Seventy-two dead, and you have not yet left familiar waters. First lesson: soldiers who survive a war become the hardest men to command.',
+    lore:'<strong>The Cicones</strong>The Cicones were a Thracian people, allies of Troy. Homer uses their raid as the first test of Odysseus\'s authority: he gives the right order, his men refuse it, and people die. It is also the first of many moments where the crew\'s hunger, for plunder, food, or ease, works against survival. The episode sets the pattern for everything that follows.',
+    quote:'Six benches were left empty in every ship / from the long voyage out and the sharp fighting.<cite>Homer, Odyssey Book IX (tr. Fitzgerald)</cite>' },
   { name:'Land of the Lotus-Eaters', lon:13.3, lat:33.3, yearsAdd:0.2,
-    text:'Three men eat the lotus and forget Ithaca entirely — they weep when you drag them back. You bind them under the rowing benches. The lotus offers oblivion. You choose suffering and memory.',
-    lore:'<strong>The Lotus-Eaters</strong>Located vaguely in North Africa, this episode is brief but structurally important. The lotus is not described as pleasurable — it simply removes longing. The men who eat it stop wanting to go home. Homer treats this as catastrophic. The <em>Odyssey</em> is fundamentally a poem about the value of <em>nostos</em> — homecoming — and the lotus is its first explicit threat: not violence, but the erasure of desire.',
-    quote:'Any of them who ate the honey-sweet fruit of lotus / was unwilling to take any message back, or to go away, / but they wanted to stay there with the lotus-eating people, feeding on lotus, and forget the way home.<cite>— Homer, Odyssey Book IX (tr. Lattimore)</cite>' },
+    text:'Three men eat the lotus and forget Ithaca entirely, they weep when you drag them back. You bind them under the rowing benches. The lotus offers oblivion. You choose suffering and memory.',
+    lore:'<strong>The Lotus-Eaters</strong>Located vaguely in North Africa, this episode is brief but structurally important. The lotus is not described as pleasurable, it simply removes longing. The men who eat it stop wanting to go home. Homer treats this as catastrophic. The <em>Odyssey</em> is fundamentally a poem about the value of <em>nostos</em>, homecoming, and the lotus is its first explicit threat: not violence, but the erasure of desire.',
+    quote:'Any of them who ate the honey-sweet fruit of lotus / was unwilling to take any message back, or to go away, / but they wanted to stay there with the lotus-eating people, feeding on lotus, and forget the way home.<cite>Homer, Odyssey Book IX (tr. Lattimore)</cite>' },
   { name:'Island of the Cyclopes', lon:15.2, lat:37.6, crewLost:6, yearsAdd:0.2,
     text:'Polyphemus seals you in his cave and eats six men. You blind him with a sharpened stake. Escaping under his sheep, you shout your name from the ship. He prays to his father Poseidon. This is the moment your ten years truly begin.',
-    lore:'<strong>Polyphemus</strong>The Cyclopes are sons of Poseidon — one-eyed giants who herd sheep and recognize no laws or gods. Polyphemus is not merely a monster: Homer gives him prayers, a name, a father. Odysseus\'s fatal mistake is not blinding him — it\'s pride. Escaping by the name "Nobody," he ruins it by shouting his real name across the water. Polyphemus now has a name to give Poseidon. The curse that follows — delayed homecoming, lost ships, lost crew — flows entirely from this moment of hubris.',
-    quote:'"Cyclops, if any mortal man ever asks you who it was / that inflicted upon your eye this shameful blinding, / tell him that you were blinded by Odysseus, sacker of cities."<cite>— Homer, Odyssey Book IX (tr. Lattimore)</cite>' },
-  { name:'Aeolia — Island of the Winds', lon:14.8, lat:38.6, yearsAdd:0.3,
+    lore:'<strong>Polyphemus</strong>The Cyclopes are sons of Poseidon, one-eyed giants who herd sheep and recognize no laws or gods. Polyphemus is not merely a monster: Homer gives him prayers, a name, a father. Odysseus\'s fatal mistake is not blinding him, it\'s pride. Escaping by the name "Nobody," he ruins it by shouting his real name across the water. Polyphemus now has a name to give Poseidon. The curse that follows, delayed homecoming, lost ships, lost crew, flows entirely from this moment of hubris.',
+    quote:'"Cyclops, if any mortal man ever asks you who it was / that inflicted upon your eye this shameful blinding, / tell him that you were blinded by Odysseus, sacker of cities."<cite>Homer, Odyssey Book IX (tr. Lattimore)</cite>' },
+  { name:'Aeolia / Island of the Winds', lon:14.8, lat:38.6, yearsAdd:0.3,
     text:'Aeolus gives you a bag containing every adverse wind. Nine days you sail; Ithaca appears on the horizon. You sleep. Your crew opens the bag. Every wind escapes. The storm drives you back. Aeolus refuses to help a man the gods so clearly hate.',
-    lore:'<strong>Aeolus, Keeper of the Winds</strong>Aeolus was appointed by Zeus to control the winds — not a god himself, but a favored mortal. His gift of the wind-bag is an extraordinary act of hospitality (<em>xenia</em>), the sacred Greek code of host and guest that the <em>Odyssey</em> tests repeatedly. The crew\'s suspicion — they assume the bag holds treasure Odysseus is hoarding — destroys what nine days of favorable sailing had built. Ithaca was visible. This is the closest Odysseus comes to home before the very end.',
-    quote:'They opened the bag. The winds burst out, and a violent squall / struck and swept them back to sea, weeping, away from their native land.<cite>— Homer, Odyssey Book X (tr. Fagles)</cite>' },
-  { name:'Lamos — Laestrygonians', lon:8.4, lat:40.5, shipsLost:11, laestrygonians:true, yearsAdd:0.2,
+    lore:'<strong>Aeolus, Keeper of the Winds</strong>Aeolus was appointed by Zeus to control the winds, not a god himself, but a favored mortal. His gift of the wind-bag is an extraordinary act of hospitality (<em>xenia</em>), the sacred Greek code of host and guest that the <em>Odyssey</em> tests repeatedly. The crew\'s suspicion, they assume the bag holds treasure Odysseus is hoarding, destroys what nine days of favorable sailing had built. Ithaca was visible. This is the closest Odysseus comes to home before the very end.',
+    quote:'They opened the bag. The winds burst out, and a violent squall / struck and swept them back to sea, weeping, away from their native land.<cite>Homer, Odyssey Book X (tr. Fagles)</cite>' },
+  { name:'Lamos / Laestrygonians', lon:8.4, lat:40.5, shipsLost:11, laestrygonians:true, yearsAdd:0.2,
     text:'Giant cannibals. You anchor outside the harbor; your captains moor inside. The Laestrygonians hurl boulders and spear men in the water like fish. Eleven ships destroyed. You cut your rope and flee. One ship. Forty-five men.',
-    lore:'<strong>The Laestrygonians</strong>Unlike the Cyclops episode, this one offers no cleverness, no escape plan, no heroic trick — just catastrophe. In one afternoon Odysseus loses eleven of his twelve ships and the majority of his crew. Homer never explains why Odysseus alone anchored outside the harbor. Perhaps prudence; perhaps luck. The Laestrygonians are the poem\'s bluntest statement: some disasters cannot be outwitted, only survived.',
-    quote:'Like men spearing fish they skewered my men and bore them home / to make their grisly meal. While I was still in the deep inlet / I drew my sword and cut the cable of my dark-prowed ship.<cite>— Homer, Odyssey Book X (tr. Fagles)</cite>' },
-  { name:'Aeaea — Island of Circe', lon:12.9, lat:41.7, yearsAdd:1.2,
+    lore:'<strong>The Laestrygonians</strong>Unlike the Cyclops episode, this one offers no cleverness, no escape plan, no heroic trick, just catastrophe. In one afternoon Odysseus loses eleven of his twelve ships and the majority of his crew. Homer never explains why Odysseus alone anchored outside the harbor. Perhaps prudence; perhaps luck. The Laestrygonians are the poem\'s bluntest statement: some disasters cannot be outwitted, only survived.',
+    quote:'Like men spearing fish they skewered my men and bore them home / to make their grisly meal. While I was still in the deep inlet / I drew my sword and cut the cable of my dark-prowed ship.<cite>Homer, Odyssey Book X (tr. Fagles)</cite>' },
+  { name:'Aeaea / Island of Circe', lon:12.9, lat:41.7, yearsAdd:1.2,
     text:'Circe transforms your men into pigs. Protected by the herb moly, you threaten her; she reverses the spell. A year passes in her halls. Your men remind you of home. She sends you to the House of Hades to speak with the dead prophet Tiresias.',
-    lore:'<strong>Circe</strong>Circe is a goddess — daughter of Helios the sun-god — who lives alone on Aeaea with her loom and her lions. She is the first of two divine women (Calypso is the second) who detain Odysseus. The herb moly that Hermes gives Odysseus to resist her magic is never botanically identified; ancient commentators debated it for centuries. Circe becomes an ally: she directs Odysseus to the Underworld, warns him of the Sirens, and sends him off with knowledge no living man possesses. She is dangerous, then generous — a common shape in Homer.',
-    quote:'Circe the nymph with the lovely braids, dread goddess gifted with mortal speech.<cite>— Homer, Odyssey Book X (tr. Fagles)</cite>' },
+    lore:'<strong>Circe</strong>Circe is a goddess, daughter of Helios the sun-god, who lives alone on Aeaea with her loom and her lions. She is the first of two divine women (Calypso is the second) who detain Odysseus. The herb moly that Hermes gives Odysseus to resist her magic is never botanically identified; ancient commentators debated it for centuries. Circe becomes an ally: she directs Odysseus to the Underworld, warns him of the Sirens, and sends him off with knowledge no living man possesses. She is dangerous, then generous, a common shape in Homer.',
+    quote:'Circe the nymph with the lovely braids, dread goddess gifted with mortal speech.<cite>Homer, Odyssey Book X (tr. Fagles)</cite>' },
   { name:'The House of Hades', lon:-1.5, lat:37.0, yearsAdd:0.3,
     text:'At the edge of the world you pour blood into a trench. The dead swarm up. Tiresias warns you: do not touch the cattle of Helios on Thrinacia. Your mother tells you she died of grief while you were gone. Achilles tells you he would rather be a slave among the living than a king among the dead.',
-    lore:'<strong>The Nekuia</strong>Book XI — the katabasis, or descent to the dead — is one of Homer\'s most celebrated passages. Odysseus does not descend into Hades; he stands at its boundary and summons the shades with blood sacrifice. Three conversations define the episode: Tiresias gives the prophecy; his mother Anticleia reveals the cost of his absence at home; and Achilles, greatest of warriors, delivers the poem\'s sharpest line about mortality. The dead cannot be embraced — when Odysseus reaches for his mother she passes through his arms like smoke.',
-    quote:'"I would rather follow the plow as thrall to another man, one with no land allotted to him and not much to live on, than be a king over all the perished dead."<cite>— Achilles, Odyssey Book XI (tr. Lattimore)</cite>' },
+    lore:'<strong>The Nekuia</strong>Book XI, the katabasis, or descent to the dead, is one of Homer\'s most celebrated passages. Odysseus does not descend into Hades; he stands at its boundary and summons the shades with blood sacrifice. Three conversations define the episode: Tiresias gives the prophecy; his mother Anticleia reveals the cost of his absence at home; and Achilles, greatest of warriors, delivers the poem\'s sharpest line about mortality. The dead cannot be embraced, when Odysseus reaches for his mother she passes through his arms like smoke.',
+    quote:'"I would rather follow the plow as thrall to another man, one with no land allotted to him and not much to live on, than be a king over all the perished dead."<cite>Achilles, Odyssey Book XI (tr. Lattimore)</cite>' },
   { name:'The Island of the Sirens', lon:16.1, lat:38.4, yearsAdd:0.15,
     text:'You stop your men\'s ears with wax. You alone listen, lashed to the mast. You beg and scream to be cut free. Your men row harder. The Sirens offer omniscience at the cost of everything else. You sail past.',
-    lore:'<strong>The Sirens</strong>In Homer, the Sirens are not described physically — no fish-tails, no wings. They sit in a meadow surrounded by the rotting bones of sailors. What they offer is not beauty but knowledge: "we know everything that happens on this broad earth." Their song promises total understanding. Odysseus is the only mortal to hear them and survive — but only because he is bound. He cannot act on what he learns. The Sirens represent the seduction of pure knowledge detached from consequence or return.',
-    quote:'"Come closer, famous Odysseus, Achaea\'s pride and glory — moor your ship on our coast so you can hear our song! No one who passes our way in his black vessel can flee us / till he has heard our voices pour from our lips like honey."<cite>— Homer, Odyssey Book XII (tr. Fagles)</cite>' },
+    lore:'<strong>The Sirens</strong>In Homer, the Sirens are not described physically, no fish-tails, no wings. They sit in a meadow surrounded by the rotting bones of sailors. What they offer is not beauty but knowledge: "we know everything that happens on this broad earth." Their song promises total understanding. Odysseus is the only mortal to hear them and survive, but only because he is bound. He cannot act on what he learns. The Sirens represent the seduction of pure knowledge detached from consequence or return.',
+    quote:'"Come closer, famous Odysseus, Achaea\'s pride and glory, moor your ship on our coast so you can hear our song! No one who passes our way in his black vessel can flee us / till he has heard our voices pour from our lips like honey."<cite>Homer, Odyssey Book XII (tr. Fagles)</cite>' },
   { name:'Scylla and Charybdis', lon:15.6, lat:38.15, crewLost:6, yearsAdd:0.1,
-    text:'Steer toward Scylla: lose six to save the rest. Scylla lifts six men screaming from the oars. You had told them nothing. Knowing it would happen and being unable to stop it — this is the specific weight of command.',
-    lore:'<strong>Scylla and Charybdis</strong>Scylla is a twelve-footed monster with six heads, each with three rows of teeth, living in a sea-cliff. Charybdis is a whirlpool that swallows the sea three times daily and spits it back. The strait between them — probably modeled on the Strait of Messina — forces an impossible choice. Circe\'s advice is unsentimental: aim for Scylla, accept six deaths, save the rest. Odysseus follows it. He watches six men die knowing he chose it. Homer gives us their names.',
-    quote:'Scylla snatched six of my men from the hollow ship, / the best of them in strength and arms. I looked back toward the swift ship and the crew / and saw their feet and hands from below, already lifted high.<cite>— Homer, Odyssey Book XII (tr. Lattimore)</cite>' },
-  { name:'Thrinacia — Cattle of the Sun', lon:15.1, lat:37.0, thrinacia:true, yearsAdd:0.3,
-    text:'Storms pin you for a month. Your men slaughter the sacred cattle while you sleep. You warned them. Zeus sends a thunderbolt into the hull. Every man drowns. You alone survive — because you ate nothing.',
-    lore:'<strong>The Cattle of Helios</strong>Tiresias warned Odysseus explicitly: leave the cattle of the sun-god Helios untouched. Circe repeated the warning. Odysseus made his crew swear an oath. A month of contrary winds starved them into desperation. Their logic was practical — they were going to die anyway — but the cattle were sacred, and Zeus was watching. This is the <em>Odyssey</em>\'s clearest statement about fate and obedience: the crew\'s death was foreseeable, avoidable, and chosen. Odysseus survives because he kept the oath. He survives alone.',
-    quote:'The men went and drove the best cattle of the god Helios from nearby, for the beautiful broad-faced cattle were not far from the dark-prowed ship. The men gathered around the cattle and prayed to the gods.<cite>— Homer, Odyssey Book XII (tr. Lattimore)</cite>' },
-  { name:'Ogygia — Island of Calypso', lon:13.8, lat:35.7, calypso:true, hasScene:true, yearsAdd:7,
+    text:'Steer toward Scylla: lose six to save the rest. Scylla lifts six men screaming from the oars. You had told them nothing. Knowing it would happen and being unable to stop it, this is the specific weight of command.',
+    lore:'<strong>Scylla and Charybdis</strong>Scylla is a twelve-footed monster with six heads, each with three rows of teeth, living in a sea-cliff. Charybdis is a whirlpool that swallows the sea three times daily and spits it back. The strait between them, probably modeled on the Strait of Messina, forces an impossible choice. Circe\'s advice is unsentimental: aim for Scylla, accept six deaths, save the rest. Odysseus follows it. He watches six men die knowing he chose it. Homer gives us their names.',
+    quote:'Scylla snatched six of my men from the hollow ship, / the best of them in strength and arms. I looked back toward the swift ship and the crew / and saw their feet and hands from below, already lifted high.<cite>Homer, Odyssey Book XII (tr. Lattimore)</cite>' },
+  { name:'Thrinacia / Cattle of the Sun', lon:15.1, lat:37.0, thrinacia:true, yearsAdd:0.3,
+    text:'Storms pin you for a month. Your men slaughter the sacred cattle while you sleep. You warned them. Zeus sends a thunderbolt into the hull. Every man drowns. You alone survive, because you ate nothing.',
+    lore:'<strong>The Cattle of Helios</strong>Tiresias warned Odysseus explicitly: leave the cattle of the sun-god Helios untouched. Circe repeated the warning. Odysseus made his crew swear an oath. A month of contrary winds starved them into desperation. Their logic was practical, they were going to die anyway, but the cattle were sacred, and Zeus was watching. This is the <em>Odyssey</em>\'s clearest statement about fate and obedience: the crew\'s death was foreseeable, avoidable, and chosen. Odysseus survives because he kept the oath. He survives alone.',
+    quote:'The men went and drove the best cattle of the god Helios from nearby, for the beautiful broad-faced cattle were not far from the dark-prowed ship. The men gathered around the cattle and prayed to the gods.<cite>Homer, Odyssey Book XII (tr. Lattimore)</cite>' },
+  { name:'Ogygia / Island of Calypso', lon:13.8, lat:35.7, calypso:true, hasScene:true, yearsAdd:7,
     text:'Calypso pulls you from the wreckage. She is immortal, beautiful, and loves you without deception. Seven years you have wept for Ithaca on her shore.',
     scenePrompt:'The night is still. The sea is black glass. She stands before you and makes her offer plainly. She will not make it again.',
-    lore:'<strong>Who is Calypso?</strong>Calypso (Greek: Καλυψώ, "she who conceals") is a daughter of Atlas, a sea-nymph of the island Ogygia — located by Homer at the "navel of the sea," far from all gods and men. Her name hints at her function: she conceals Odysseus from the world and from his own story for seven years. She is not a villain. She loves him genuinely and offers what no mortal can: immortality and agelessness beside her forever. When Zeus sends Hermes to order his release (Book 5), she obeys — but not without grief. She is among the most sympathetic figures in the poem. The choice Homer stages here — mortal life, remembered, versus immortal life, forgotten — is central to what the <em>Odyssey</em> argues: that identity, suffering, and return are worth more than paradise without a self.',
+    lore:'<strong>Who is Calypso?</strong>Calypso (Greek: Καλυψώ, "she who conceals") is a daughter of Atlas, a sea-nymph of the island Ogygia, located by Homer at the "navel of the sea," far from all gods and men. Her name hints at her function: she conceals Odysseus from the world and from his own story for seven years. She is not a villain. She loves him genuinely and offers what no mortal can: immortality and agelessness beside her forever. When Zeus sends Hermes to order his release (Book 5), she obeys, but not without grief. She is among the most sympathetic figures in the poem. The choice Homer stages here, mortal life, remembered, versus immortal life, forgotten, is central to what the <em>Odyssey</em> argues: that identity, suffering, and return are worth more than paradise without a self.',
     choices:[
       { id:'immortality', label:'Accept. Stay with Calypso forever.' },
       { id:'refuse',      label:'Refuse. Weep for Ithaca.' }
     ]
   },
-  { name:'Scheria — Phaeacians', lon:19.9, lat:39.8, yearsAdd:0.3,
+  { name:'Scheria / Phaeacians', lon:19.9, lat:39.8, yearsAdd:0.3,
     text:'Poseidon wrecks your raft. You wash ashore naked and sleep under an olive tree. Princess Nausicaa finds you. The Phaeacians feast you, hear the entire voyage, then give you a ship. While you sleep it carries you to Ithaca. Twenty years have passed.',
-    lore:'<strong>The Phaeacians</strong>The Phaeacians live at the edge of the world and serve as the boundary between the mythic wandering and the real world of Ithaca. Their king Alcinous and queen Arete preside over a society of ideal hospitality — the pinnacle of <em>xenia</em>. It is to this court that Odysseus recounts the entire voyage (Books IX–XII). The Phaeacians\' magical ships sail by thought alone. After delivering Odysseus, Poseidon punishes them by turning their ship to stone — they were too helpful to a man he despised.',
-    quote:'Now I ask you, Alcinous, to send me on my way. / My voyage home has been the gods\' concern, but my heart / has always longed to reach my native land.<cite>— Homer, Odyssey Book XI (tr. Fagles)</cite>' },
-  { name:'Ithaca — Home', lon:20.7, lat:38.4, yearsAdd:0,
-    text:'Athena reveals the island to you. 108 suitors fill your palace. Penelope has held them off for twenty years. You enter disguised as a beggar. You string your own bow — the great bow no suitor could bend — and begin. When it is over the hall is quiet. You find Penelope. She tests you. You pass. You are home.',
-    lore:'<strong>Penelope</strong>Penelope is one of the great figures of the poem — not passive, but strategic. For three years she unraveled at night a burial shroud she claimed to be weaving by day, stalling the suitors. She recognizes Odysseus before she admits it, and tests him with the secret of their bed — carved from a living olive tree, immovable — before accepting him. Her intelligence matches his. Homer presents their reunion as a meeting of equals: two people who held on to each other across twenty years without ever knowing the other was still holding.',
-    quote:'Come, Eurycleia, spread the firm bed outside / the well-built room he built himself. Move the heavy bedstead out there for him, and throw the rugs and fleece and blankets on it. — "Who could move my bed?" Odysseus burst out.<cite>— Homer, Odyssey Book XXIII (tr. Fagles)</cite>' },
+    lore:'<strong>The Phaeacians</strong>The Phaeacians live at the edge of the world and serve as the boundary between the mythic wandering and the real world of Ithaca. Their king Alcinous and queen Arete preside over a society of ideal hospitality, the pinnacle of <em>xenia</em>. It is to this court that Odysseus recounts the entire voyage (Books IX–XII). The Phaeacians\' magical ships sail by thought alone. After delivering Odysseus, Poseidon punishes them by turning their ship to stone, they were too helpful to a man he despised.',
+    quote:'Now I ask you, Alcinous, to send me on my way. / My voyage home has been the gods\' concern, but my heart / has always longed to reach my native land.<cite>Homer, Odyssey Book XI (tr. Fagles)</cite>' },
+  { name:'Ithaca / Home', lon:20.7, lat:38.4, yearsAdd:0,
+    text:'Athena reveals the island to you. 108 suitors fill your palace. Penelope has held them off for twenty years. You enter disguised as a beggar. You string your own bow, the great bow no suitor could bend, and begin. When it is over the hall is quiet. You find Penelope. She tests you. You pass. You are home.',
+    lore:'<strong>Penelope</strong>Penelope is one of the great figures of the poem, not passive, but strategic. For three years she unraveled at night a burial shroud she claimed to be weaving by day, stalling the suitors. She recognizes Odysseus before she admits it, and tests him with the secret of their bed, carved from a living olive tree, immovable, before accepting him. Her intelligence matches his. Homer presents their reunion as a meeting of equals: two people who held on to each other across twenty years without ever knowing the other was still holding.',
+    quote:'Come, Eurycleia, spread the firm bed outside / the well-built room he built himself. Move the heavy bedstead out there for him, and throw the rugs and fleece and blankets on it., "Who could move my bed?" Odysseus burst out.<cite>Homer, Odyssey Book XXIII (tr. Fagles)</cite>' },
 ];
 
 // Preload Calypso image
@@ -368,15 +368,15 @@ function arrowhead(x1,y1,x2,y2){
 function renderMap() {
   cx.clearRect(0, 0, W, H);
 
-  // Sea — teal
+  // Sea, teal
   const sea = cx.createLinearGradient(0,0,0,H);
   sea.addColorStop(0,'#74b8cc'); sea.addColorStop(1,'#4e9cb8');
   cx.fillStyle=sea; cx.fillRect(0,0,W,H);
 
-  // Land — warm cream
+  // Land, warm cream
   for (const pts of landmasses) poly(pts,'#e8d888','#b8a048');
 
-  // Region labels — crisp, rounded positions, shadow halo
+  // Region labels, crisp, rounded positions, shadow halo
   cx.textAlign='center'; cx.textBaseline='middle';
   cx.font='bold 11px Georgia';
   for (const [n,lon,lat] of [
@@ -403,7 +403,7 @@ function renderMap() {
   }
   cx.textBaseline='alphabetic';
 
-  // Visited path — curved red lines with arrowheads
+  // Visited path, curved red lines with arrowheads
   if (g.cur>=1){
     cx.save();
     cx.strokeStyle='#b82818'; cx.fillStyle='#b82818';
@@ -425,7 +425,7 @@ function renderMap() {
     cx.restore();
   }
 
-  // Stop markers — numbered circles
+  // Stop markers, numbered circles
   stops.forEach((s,i)=>{
     const [x,y]=pt(s.lon,s.lat);
     const isCur=i===g.cur, isVis=i<=g.cur, isNext=i===g.cur+1;
@@ -450,9 +450,9 @@ function renderMap() {
     cx.fillText(i+1,nx2,ny2);
     cx.textBaseline='alphabetic';
 
-    // Place-name label — only shown when relevant
+    // Place-name label, only shown when relevant
     if (isCur||isNext||(isVis&&i>=g.cur-2)){
-      const label=s.name.split('—')[0].trim().split(' — ')[0];
+      const label=s.name.split(' / ')[0].trim().split(', ')[0];
       cx.font=isCur?'bold 11px Georgia':'10px Georgia';
       cx.textAlign='center';
       const above=s.lat>40||s.lat<34;
@@ -500,7 +500,7 @@ function renderScene(t) {
     cx.fillStyle=`rgba(225,232,255,${alpha})`; cx.fill();
   });
 
-  // Moon — upper left
+  // Moon, upper left
   const moonX=W*0.15, moonY=H*0.15, moonR=36;
   const mHalo=cx.createRadialGradient(moonX,moonY,moonR,moonX,moonY,moonR*5);
   mHalo.addColorStop(0,'rgba(255,240,185,0.2)');
@@ -591,7 +591,7 @@ function drawCalypsoImage(t, HZ) {
   cx.save();
   cx.drawImage(calypsoImg, dx, 0, dw, dh);
 
-  // Fade left edge into sky — gradient mask
+  // Fade left edge into sky, gradient mask
   const fadeL = cx.createLinearGradient(dx, 0, dx + dw*0.28, 0);
   fadeL.addColorStop(0, 'rgba(8,4,24,1)');
   fadeL.addColorStop(1, 'rgba(8,4,24,0)');
@@ -670,14 +670,14 @@ function handleChoice(id){
   if (id==='immortality'){
     stopScene(); g.mode='end';
     renderMap();
-    document.getElementById('loc-name').textContent='Ogygia — You stay.';
-    document.getElementById('myth').textContent='You accept. Calypso weeps — not from sorrow, but from joy. She leads you back into her cavern where a great fire of fragrant cedar burns always. You stop counting years. The sea outside grows quiet. Ithaca fades. Penelope fades. Somewhere a son grows old waiting for a father who will not come. The gods do not speak of you again. You are no longer a story. You are simply, at last, content. The Odyssey does not end here — it simply never happens.';
+    document.getElementById('loc-name').textContent='Ogygia, You stay.';
+    document.getElementById('myth').textContent='You accept. Calypso weeps, not from sorrow, but from joy. She leads you back into her cavern where a great fire of fragrant cedar burns always. You stop counting years. The sea outside grows quiet. Ithaca fades. Penelope fades. Somewhere a son grows old waiting for a father who will not come. The gods do not speak of you again. You are no longer a story. You are simply, at last, content. The Odyssey does not end here, it simply never happens.';
     document.getElementById('btns').innerHTML='';
     document.getElementById('progress').textContent='An ending not in Homer.';
   } else {
     stopScene();
-    document.getElementById('myth').textContent='You refuse. You have refused every morning for seven years — sitting on the rocks, weeping toward the empty horizon. The gods finally compel her. Hermes arrives. Calypso obeys with quiet grief. She helps you build a raft, gives you provisions and a fair wind, and stands on the shore as you sail away. She does not call after you. She loved you enough to let you go.';
-    const nxt=stops[g.cur+1].name.split('—')[0].trim();
+    document.getElementById('myth').textContent='You refuse. You have refused every morning for seven years, sitting on the rocks, weeping toward the empty horizon. The gods finally compel her. Hermes arrives. Calypso obeys with quiet grief. She helps you build a raft, gives you provisions and a fair wind, and stands on the shore as you sail away. She does not call after you. She loved you enough to let you go.';
+    const nxt=stops[g.cur+1].name.split(' / ')[0].trim();
     document.getElementById('btns').innerHTML=`<button class="btn" onclick="advance()">Sail for ${nxt} →</button>`;
     document.getElementById('progress').textContent=`Stop ${g.cur+1} of ${stops.length}`;
     renderMap();
@@ -705,7 +705,7 @@ function updatePanel(){
     btns.innerHTML='<button class="btn" disabled>You are home.</button>';
   } else {
     document.getElementById('myth').textContent=s.text;
-    const nxt=stops[g.cur+1].name.split('—')[0].trim();
+    const nxt=stops[g.cur+1].name.split(' / ')[0].trim();
     btns.innerHTML=`<button class="btn" onclick="advance()">Sail for ${nxt} →</button>`;
   }
   document.getElementById('progress').textContent=`Stop ${g.cur+1} of ${stops.length}`;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ΙΛΙΑΣ — The Wrath of Achilles</title>
+<title>ΙΛΙΑΣ: The Wrath of Achilles</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -197,35 +197,35 @@ const landmasses = [
 ];
 
 const stops = [
-  { name:'The Greek Camp — Year Ten', lon:25.5, lat:39.35, daysAdd:1,
+  { name:'The Greek Camp / Year Ten', lon:25.5, lat:39.35, daysAdd:1,
     text:'Ten years of siege. The city still stands. Your ships have rotted on the beach, your men have grown old or died far from home. Then Agamemnon insults the priest Chryses, who came under a flag of peace to ransom his daughter. He sends him away with contempt. Apollo hears the prayer.',
-    lore:'<strong>Where the Iliad Begins</strong>The Iliad covers only 51 days of the ten-year Trojan War. It begins in medias res — Homer assumes his audience knows the backstory: the judgment of Paris, the theft of Helen, the thousand ships. The poem is not about the war. It is about one man\'s rage and what it costs everyone around him. The Greek word is mēnis (μῆνις) — divine wrath, the kind gods feel. Homer gives this word to a mortal.',
-    quote:'Sing, goddess, the anger of Peleus\' son Achilleus / and its devastation, which put pains thousandfold upon the Achaians.<cite>— Homer, Iliad Book I (tr. Lattimore)</cite>' },
+    lore:'<strong>Where the Iliad Begins</strong>The Iliad covers only 51 days of the ten-year Trojan War. It begins in medias res, Homer assumes his audience knows the backstory: the judgment of Paris, the theft of Helen, the thousand ships. The poem is not about the war. It is about one man\'s rage and what it costs everyone around him. The Greek word is mēnis (μῆνις), divine wrath, the kind gods feel. Homer gives this word to a mortal.',
+    quote:'Sing, goddess, the anger of Peleus\' son Achilleus / and its devastation, which put pains thousandfold upon the Achaians.<cite>Homer, Iliad Book I (tr. Lattimore)</cite>' },
 
   { name:'The Plague', lon:25.8, lat:39.6, daysAdd:9,
-    text:'For nine days Apollo\'s arrows rain down on the camp. The mules and dogs die first, then the men. Funeral pyres burn without pause. Achilles calls an assembly. What Agamemnon did must be undone — the girl must be returned, Apollo appeased. Agamemnon agrees. Then he demands a replacement. His eyes fall on Briseis, the prize of Achilles.',
-    lore:'<strong>Apollo</strong>Chryses, priest of Apollo at Chryse, came to ransom his daughter Chryseis — Agamemnon\'s war prize. He came with gold and with Apollo\'s golden staff, the mark of a suppliant under divine protection. Agamemnon refused with contempt. Apollo\'s plague is the god\'s answer. In Homer, divine punishment operates with the precision of cause and effect: insult a priest, feel the god\'s arrows. The nine-day plague is the mechanism that forces Agamemnon\'s hand — and then reveals his character.',
-    quote:'He came to the swift ships of the Achaians to win the freedom of his daughter, carrying ransoms past counting, / and bearing in his hands wound on a staff of gold the ribbons of Apollo who strikes from afar.<cite>— Homer, Iliad Book I (tr. Lattimore)</cite>' },
+    text:'For nine days Apollo\'s arrows rain down on the camp. The mules and dogs die first, then the men. Funeral pyres burn without pause. Achilles calls an assembly. What Agamemnon did must be undone, the girl must be returned, Apollo appeased. Agamemnon agrees. Then he demands a replacement. His eyes fall on Briseis, the prize of Achilles.',
+    lore:'<strong>Apollo</strong>Chryses, priest of Apollo at Chryse, came to ransom his daughter Chryseis, Agamemnon\'s war prize. He came with gold and with Apollo\'s golden staff, the mark of a suppliant under divine protection. Agamemnon refused with contempt. Apollo\'s plague is the god\'s answer. In Homer, divine punishment operates with the precision of cause and effect: insult a priest, feel the god\'s arrows. The nine-day plague is the mechanism that forces Agamemnon\'s hand, and then reveals his character.',
+    quote:'He came to the swift ships of the Achaians to win the freedom of his daughter, carrying ransoms past counting, / and bearing in his hands wound on a staff of gold the ribbons of Apollo who strikes from afar.<cite>Homer, Iliad Book I (tr. Lattimore)</cite>' },
 
-  { name:'The Rage — Briseis Taken', lon:25.35, lat:39.1, daysAdd:1,
-    text:'Agamemnon takes Briseis — your prize, your honor, the visible proof that the army values you. You reach for your sword. Athena appears, invisible to all but you, and grabs you by the hair. She tells you to hold. Draw back. Swear. Let the insult stand and make Agamemnon regret it the hard way. You withdraw to your ships. You ask your mother Thetis to ask Zeus: let the Greeks lose. Let them bleed until they beg for you. Zeus agrees.',
-    lore:'<strong>Timē — Honor</strong>In the Homeric world, timē (τιμή) — honor, worth — was not vanity. It was a warrior\'s social identity, made visible through the prizes allotted after battle. Briseis is not primarily a woman to Achilles; she is proof of his standing in the army\'s hierarchy. When Agamemnon seizes her, he publicly declares Achilles worth less than himself. Achilles is not sulking. He is making a correct argument: an army that dishonors its best man deserves to lose without him. The tragedy is that he is right.',
-    quote:'"A man can win more cattle and fat sheep, / can acquire cauldrons and horses; but once a man\'s life has left him / it cannot come back again."<cite>— Achilles, Iliad Book IX (tr. Lattimore)</cite>' },
+  { name:'The Rage / Briseis Taken', lon:25.35, lat:39.1, daysAdd:1,
+    text:'Agamemnon takes Briseis, your prize, your honor, the visible proof that the army values you. You reach for your sword. Athena appears, invisible to all but you, and grabs you by the hair. She tells you to hold. Draw back. Swear. Let the insult stand and make Agamemnon regret it the hard way. You withdraw to your ships. You ask your mother Thetis to ask Zeus: let the Greeks lose. Let them bleed until they beg for you. Zeus agrees.',
+    lore:'<strong>Timē, Honor</strong>In the Homeric world, timē (τιμή), honor, worth, was not vanity. It was a warrior\'s social identity, made visible through the prizes allotted after battle. Briseis is not primarily a woman to Achilles; she is proof of his standing in the army\'s hierarchy. When Agamemnon seizes her, he publicly declares Achilles worth less than himself. Achilles is not sulking. He is making a correct argument: an army that dishonors its best man deserves to lose without him. The tragedy is that he is right.',
+    quote:'"A man can win more cattle and fat sheep, / can acquire cauldrons and horses; but once a man\'s life has left him / it cannot come back again."<cite>Achilles, Iliad Book IX (tr. Lattimore)</cite>' },
 
   { name:'Olympus', lon:22.5, lat:40.6, daysAdd:1,
-    text:'Thetis rises from the sea and finds Zeus on the peak of Olympus. She reminds him of a debt — she once rescued him when the other gods tried to chain him. He owes her a favor. She asks: let the Trojans win until the Greeks honor her son. Zeus hesitates. Hera will be furious. He nods anyway. The whole of Olympus shakes. Hera sees. The divine household argues. They sleep. Below the mountain, Troy still stands.',
-    lore:'<strong>The Gods</strong>Homer\'s gods are not omnipotent moral governors. They have favorites, carry grudges, and scheme against each other under a loose hierarchy. Zeus can be pressured but not overruled. Hera and Athena favor the Greeks; Apollo, Ares, and Aphrodite favor Troy. They intervene directly in battle — deflecting spears, lifting their favorites from danger — and their quarrels mirror and amplify the human ones below. The gods\' domestic squabbles are often darkly comic; the human deaths they cause are not.',
-    quote:'He spoke, the son of Kronos, and nodded his head with the dark brows, / and the immortally anointed hair of the great god / swept from his divine head, and all Olympos was shaken.<cite>— Homer, Iliad Book I (tr. Lattimore)</cite>' },
+    text:'Thetis rises from the sea and finds Zeus on the peak of Olympus. She reminds him of a debt, she once rescued him when the other gods tried to chain him. He owes her a favor. She asks: let the Trojans win until the Greeks honor her son. Zeus hesitates. Hera will be furious. He nods anyway. The whole of Olympus shakes. Hera sees. The divine household argues. They sleep. Below the mountain, Troy still stands.',
+    lore:'<strong>The Gods</strong>Homer\'s gods are not omnipotent moral governors. They have favorites, carry grudges, and scheme against each other under a loose hierarchy. Zeus can be pressured but not overruled. Hera and Athena favor the Greeks; Apollo, Ares, and Aphrodite favor Troy. They intervene directly in battle, deflecting spears, lifting their favorites from danger, and their quarrels mirror and amplify the human ones below. The gods\' domestic squabbles are often darkly comic; the human deaths they cause are not.',
+    quote:'He spoke, the son of Kronos, and nodded his head with the dark brows, / and the immortally anointed hair of the great god / swept from his divine head, and all Olympos was shaken.<cite>Homer, Iliad Book I (tr. Lattimore)</cite>' },
 
   { name:'Helen on the Walls', lon:26.55, lat:40.1, daysAdd:2,
-    text:'She stands on the walls of Troy and looks down at the armies. Priam names the Greek heroes for her: Agamemnon, Odysseus, Ajax — and there, Menelaus, her husband, the man she left. She says she wishes she had died before she came here. Below, Paris and Menelaus agree to settle everything in single combat. Whichever man wins takes Helen and the war ends. Menelaus nearly kills Paris. Aphrodite wraps him in mist and carries him back to Helen\'s bed.',
+    text:'She stands on the walls of Troy and looks down at the armies. Priam names the Greek heroes for her: Agamemnon, Odysseus, Ajax, and there, Menelaus, her husband, the man she left. She says she wishes she had died before she came here. Below, Paris and Menelaus agree to settle everything in single combat. Whichever man wins takes Helen and the war ends. Menelaus nearly kills Paris. Aphrodite wraps him in mist and carries him back to Helen\'s bed.',
     lore:'<strong>Helen</strong>Homer never presents Helen as frivolous or wicked. The Teichoscopia (\'the viewing from the walls,\' Book III) shows her in grief and dignity, identifying the Greeks for an old man who treats her with complete gentleness. She knows what she has cost. The scene is also structurally cruel: the war could end today. Paris and Menelaus agree. The duel happens. Menelaus wins. Aphrodite intervenes. Troy burns for another seven years because a goddess would not accept the result.',
-    quote:'"Would it had been my lot to have died first, / before I followed your son here and left my home, / my brother, my daughter, and the lovely friends I knew."<cite>— Helen, Iliad Book III (tr. Fagles)</cite>' },
+    quote:'"Would it had been my lot to have died first, / before I followed your son here and left my home, / my brother, my daughter, and the lovely friends I knew."<cite>Helen, Iliad Book III (tr. Fagles)</cite>' },
 
   { name:'Hector and Andromache', lon:26.4, lat:40.2, daysAdd:1, hasScene:true,
     text:'Before he returns to battle, Hector comes to the Scaean Gates. Andromache stands there with their infant son, Astyanax. The boy cries at the sight of the bronze helmet and horsehair plume. Hector laughs, removes the helmet, holds his son. He prays the boy will be greater than his father. He knows what is coming. She knows. Then he puts the helmet back and goes.',
     scenePrompt:'The gates. She stands holding the child. He has come down from the walls before returning to the plain. They both know this may be the last time.',
-    lore:'<strong>Hector</strong>Hector is the poem\'s other great hero — the defender not the attacker, the man fighting for home rather than glory. He is Troy\'s greatest warrior and he knows Troy is doomed. The farewell with Andromache (Book VI) is one of the most intimate scenes in ancient literature: the plume that frightens his own child, the prayer that rings hollow even as he says it, the wife who watches him walk away. Homer gives Hector everything that makes him worth grieving before he takes it away.',
+    lore:'<strong>Hector</strong>Hector is the poem\'s other great hero, the defender not the attacker, the man fighting for home rather than glory. He is Troy\'s greatest warrior and he knows Troy is doomed. The farewell with Andromache (Book VI) is one of the most intimate scenes in ancient literature: the plume that frightens his own child, the prayer that rings hollow even as he says it, the wife who watches him walk away. Homer gives Hector everything that makes him worth grieving before he takes it away.',
     choices:[
       { id:'return', label:'Return to the battle. Troy needs you.' },
       { id:'stay',   label:'Stay with them. Let someone else fight.' }
@@ -234,9 +234,9 @@ const stops = [
 
   { name:'The Embassy to Achilles', lon:25.25, lat:39.05, daysAdd:1, hasScene:true,
     text:'The Greeks are losing. Hector is at the ships. Agamemnon sends Odysseus, Ajax, and Phoenix to Achilles with an offer: seven tripods, ten talents of gold, twenty cauldrons, twelve prize horses, seven women, Briseis returned untouched, and the hand of a king\'s daughter. All Achilles has to do is fight. He refuses everything. He will sail home at dawn. Let the Greeks learn to save themselves.',
-    scenePrompt:'Odysseus lays out everything Agamemnon offers. Ajax stands by. Phoenix — your old tutor — is here too. They need your answer.',
-    lore:'<strong>The Great Refusal (Book IX)</strong>Book IX contains one of the most famous refusals in literature. Achilles rejects not just the gifts but the entire heroic logic they assume — that worth can be compensated in gold. He quotes his fate directly: he can live long and obscure, or die young and be remembered forever. For one night, he seems to choose life. But he does not sail. He stays in his tent. Homer shows a man dismantling the system he was built for and finding no alternative to offer.',
-    quote:'"A man can win more cattle and fat sheep, / can acquire cauldrons and horses; but once a man\'s life has left him / it cannot come back again."<cite>— Achilles, Iliad Book IX (tr. Lattimore)</cite>',
+    scenePrompt:'Odysseus lays out everything Agamemnon offers. Ajax stands by. Phoenix, your old tutor, is here too. They need your answer.',
+    lore:'<strong>The Great Refusal (Book IX)</strong>Book IX contains one of the most famous refusals in literature. Achilles rejects not just the gifts but the entire heroic logic they assume, that worth can be compensated in gold. He quotes his fate directly: he can live long and obscure, or die young and be remembered forever. For one night, he seems to choose life. But he does not sail. He stays in his tent. Homer shows a man dismantling the system he was built for and finding no alternative to offer.',
+    quote:'"A man can win more cattle and fat sheep, / can acquire cauldrons and horses; but once a man\'s life has left him / it cannot come back again."<cite>Achilles, Iliad Book IX (tr. Lattimore)</cite>',
     choices:[
       { id:'accept', label:'Accept. Return to the war and end this.' },
       { id:'refuse', label:'Refuse. Let Agamemnon save himself.' }
@@ -244,29 +244,29 @@ const stops = [
   },
 
   { name:'Patroclus', lon:25.55, lat:39.3, daysAdd:2,
-    text:'The Trojans push to the ships. Hector reaches the beachhead with a torch. Patroclus comes to Achilles weeping — for the first time, Achilles sees someone else\'s grief as real. He agrees: go in my armor, push them from the ships, come back. Do not go near the walls. Patroclus puts on the armor of Achilles and the Trojans falter — they think it is Achilles returned. He drives them back. He does not stop at the ships.',
-    lore:'<strong>Patroclus</strong>Patroclus is Achilles\'s closest companion — the one person whose grief Achilles cannot dismiss. Homer shows Achilles as capable of deep tenderness; it is simply concentrated entirely in this one friendship. The conditions Achilles sets — stop at the ships, do not approach the walls — are precisely what Patroclus ignores. Driven by battle-fury to the gates of Troy itself, he is stopped first by Apollo and then killed. His death is what finally forces Achilles back into the human world.',
-    quote:'"Why are you crying, Patroclus, like a little girl / who runs beside her mother and begs to be picked up, / and clutches at her gown and holds her back as she tries to hurry."<cite>— Achilles to Patroclus, Iliad Book XVI (tr. Fagles)</cite>' },
+    text:'The Trojans push to the ships. Hector reaches the beachhead with a torch. Patroclus comes to Achilles weeping, for the first time, Achilles sees someone else\'s grief as real. He agrees: go in my armor, push them from the ships, come back. Do not go near the walls. Patroclus puts on the armor of Achilles and the Trojans falter, they think it is Achilles returned. He drives them back. He does not stop at the ships.',
+    lore:'<strong>Patroclus</strong>Patroclus is Achilles\'s closest companion, the one person whose grief Achilles cannot dismiss. Homer shows Achilles as capable of deep tenderness; it is simply concentrated entirely in this one friendship. The conditions Achilles sets, stop at the ships, do not approach the walls, are precisely what Patroclus ignores. Driven by battle-fury to the gates of Troy itself, he is stopped first by Apollo and then killed. His death is what finally forces Achilles back into the human world.',
+    quote:'"Why are you crying, Patroclus, like a little girl / who runs beside her mother and begs to be picked up, / and clutches at her gown and holds her back as she tries to hurry."<cite>Achilles to Patroclus, Iliad Book XVI (tr. Fagles)</cite>' },
 
   { name:'Hector Kills Patroclus', lon:26.3, lat:39.85, daysAdd:1,
-    text:'Apollo strikes first — from behind, knocking off the helmet, snapping the spear, loosening the breastplate. Patroclus stands exposed. Euphorbus wounds him. Then Hector drives his spear through. Patroclus falls and says his last words: "You did not kill me. Apollo did. If you had met me fairly, it would have been different. You will not live long." He dies. The Greeks and Trojans fight over the body for hours.',
-    lore:'<strong>The Three-Stage Death</strong>Homer makes Patroclus\'s killing a three-stage process (Apollo → Euphorbus → Hector) deliberately — to diminish Hector\'s glory in it. Apollo had to strip away divine protection before any mortal could touch him. Patroclus\'s dying words — that Hector will die soon — carry full foreshadowing weight. The Greek army fights to recover the body. Achilles does not yet know.',
-    quote:'And Patroklos, wounded by the spear, drew back into the host of his companions, avoiding death. / But Hektor, seeing that great-hearted Patroklos had drawn back, / stabbed him with his spear in the lower belly and drove the bronze through.<cite>— Homer, Iliad Book XVI (tr. Lattimore)</cite>' },
+    text:'Apollo strikes first, from behind, knocking off the helmet, snapping the spear, loosening the breastplate. Patroclus stands exposed. Euphorbus wounds him. Then Hector drives his spear through. Patroclus falls and says his last words: "You did not kill me. Apollo did. If you had met me fairly, it would have been different. You will not live long." He dies. The Greeks and Trojans fight over the body for hours.',
+    lore:'<strong>The Three-Stage Death</strong>Homer makes Patroclus\'s killing a three-stage process (Apollo → Euphorbus → Hector) deliberately, to diminish Hector\'s glory in it. Apollo had to strip away divine protection before any mortal could touch him. Patroclus\'s dying words, that Hector will die soon, carry full foreshadowing weight. The Greek army fights to recover the body. Achilles does not yet know.',
+    quote:'And Patroklos, wounded by the spear, drew back into the host of his companions, avoiding death. / But Hektor, seeing that great-hearted Patroklos had drawn back, / stabbed him with his spear in the lower belly and drove the bronze through.<cite>Homer, Iliad Book XVI (tr. Lattimore)</cite>' },
 
   { name:"Achilles's Grief", lon:25.4, lat:39.1, daysAdd:1,
     text:'Antilochus arrives with the news. Achilles falls to the ground and covers himself with dust. His cry is so terrible that Thetis hears it at the bottom of the sea. She comes up with her sea-sisters. He tells her he will kill Hector. She tells him what he already knows: that means you die at Troy, soon after Hector. He says: then let me die. Thetis goes to Hephaestus. He makes new armor. He makes the shield.',
-    lore:'<strong>The Shield of Achilles (Book XVIII)</strong>Hephaestus spends 130 lines making the shield — the most elaborate ekphrasis (description of a work of art) in ancient literature. The shield shows two cities at war and at peace, fields being plowed, a vintage, a wedding, a dancing floor, the river Ocean circling the rim. It is a portrait of ordinary human life made for a man going to his death. Homer seems to be showing Achilles — and the reader — everything he is choosing to leave.',
-    quote:'"I will not live — not if I do not exact revenge on Hector, / who killed the man I loved above all others."<cite>— Achilles, Iliad Book XVIII (tr. Fagles)</cite>' },
+    lore:'<strong>The Shield of Achilles (Book XVIII)</strong>Hephaestus spends 130 lines making the shield, the most elaborate ekphrasis (description of a work of art) in ancient literature. The shield shows two cities at war and at peace, fields being plowed, a vintage, a wedding, a dancing floor, the river Ocean circling the rim. It is a portrait of ordinary human life made for a man going to his death. Homer seems to be showing Achilles, and the reader, everything he is choosing to leave.',
+    quote:'"I will not live, not if I do not exact revenge on Hector, / who killed the man I loved above all others."<cite>Achilles, Iliad Book XVIII (tr. Fagles)</cite>' },
 
   { name:'Achilles Returns', lon:26.05, lat:39.75, daysAdd:1,
-    text:'Achilles re-enters the war. He kills so many Trojans that the river Scamander chokes on bodies and rises up against him — a god trying to drown a man, while other gods fight each other overhead. He kills Lycaon, son of Priam, who begs for mercy on his knees. He answers: Patroclus died, and he was a better man than you. He keeps moving. Hector watches from the walls and tells the army to go inside. He stays alone at the gates.',
-    lore:'<strong>Force</strong>The philosopher Simone Weil wrote that the Iliad is a poem about force — the thing that turns people into objects, that makes the living into the nearly-dead and the nearly-dead into corpses. Achilles in his grief-rage embodies pure force. He kills named men whose fathers Homer gives us. He kills a suppliant on his knees. The river itself rebels. Homer does not frame this as heroic. It is what grief weaponized looks like.',
-    quote:'"Between the two of us there are no oaths, there is no faith — / the lions and the wolves have none, they hate each other forever."<cite>— Achilles to Lycaon, Iliad Book XXI (tr. Fagles)</cite>' },
+    text:'Achilles re-enters the war. He kills so many Trojans that the river Scamander chokes on bodies and rises up against him, a god trying to drown a man, while other gods fight each other overhead. He kills Lycaon, son of Priam, who begs for mercy on his knees. He answers: Patroclus died, and he was a better man than you. He keeps moving. Hector watches from the walls and tells the army to go inside. He stays alone at the gates.',
+    lore:'<strong>Force</strong>The philosopher Simone Weil wrote that the Iliad is a poem about force, the thing that turns people into objects, that makes the living into the nearly-dead and the nearly-dead into corpses. Achilles in his grief-rage embodies pure force. He kills named men whose fathers Homer gives us. He kills a suppliant on his knees. The river itself rebels. Homer does not frame this as heroic. It is what grief weaponized looks like.',
+    quote:'"Between the two of us there are no oaths, there is no faith, / the lions and the wolves have none, they hate each other forever."<cite>Achilles to Lycaon, Iliad Book XXI (tr. Fagles)</cite>' },
 
   { name:'The Duel', lon:26.5, lat:40.0, daysAdd:1, hasScene:true,
-    text:'Hector\'s nerve breaks. He runs. Achilles chases him three times around the walls of Troy while his parents watch from the battlements. Zeus holds up his golden scales — Hector\'s death-day is heavier. Athena appears to Hector disguised as his brother Deiphobus, promising to fight beside him. Hector turns and faces Achilles. The brother is not there. The spear goes through Hector\'s throat.',
+    text:'Hector\'s nerve breaks. He runs. Achilles chases him three times around the walls of Troy while his parents watch from the battlements. Zeus holds up his golden scales, Hector\'s death-day is heavier. Athena appears to Hector disguised as his brother Deiphobus, promising to fight beside him. Hector turns and faces Achilles. The brother is not there. The spear goes through Hector\'s throat.',
     scenePrompt:'He stands at the gate. You have cornered him. The chase is over. He faces you now with his spear raised.',
-    lore:'<strong>The Death of Hector</strong>The chase around Troy\'s walls is one of the most agonizing sequences in Homer. Hector — who has fought all day for ten years — runs. Homer explains it: he had kept his men outside the walls too long, and he cannot face Achilles now. Athena\'s deception (disguising herself as Hector\'s brother to make him stand) is the cruelest moment in the poem. Hector dies knowing he was tricked, his last request — honorable burial — refused. "Do not let the dogs eat me." Achilles says no.',
+    lore:'<strong>The Death of Hector</strong>The chase around Troy\'s walls is one of the most agonizing sequences in Homer. Hector, who has fought all day for ten years, runs. Homer explains it: he had kept his men outside the walls too long, and he cannot face Achilles now. Athena\'s deception (disguising herself as Hector\'s brother to make him stand) is the cruelest moment in the poem. Hector dies knowing he was tricked, his last request, honorable burial, refused. "Do not let the dogs eat me." Achilles says no.',
     choices:[
       { id:'kill',  label:'Drive your spear through his throat. This is for Patroclus.' },
       { id:'spare', label:'Lower your weapon. He fought well.' }
@@ -274,15 +274,15 @@ const stops = [
   },
 
   { name:'Hector Defiled', lon:26.2, lat:39.8, daysAdd:12,
-    text:'Achilles pierces Hector\'s heels and ties the body to his chariot. He drives it around the walls of Troy — once, twice, three times. Priam and Hecuba watch from the walls. Andromache, braiding her hair inside, hears the wailing and runs to look. She faints. Apollo wraps the body in his golden aegis so it will not tear. For twelve days Achilles drags Hector\'s body and weeps at Patroclus\'s tomb. Zeus has had enough.',
-    lore:'<strong>The Limits of Rage</strong>Achilles\'s treatment of Hector\'s body is the poem\'s moral low point — and deliberately so. The Greeks held that the dead must be returned for burial; without rites, the soul wandered. Apollo and then Zeus himself intervene to preserve the corpse from damage, despite Achilles. The twelve days of dragging set up the ending: Achilles has gone so far into his grief and rage that the only way out is across a line he cannot imagine crossing. Then an old man crosses it for him.',
-    quote:'He devised foul treatment for glorious Hector, dragging him behind his chariot near the tomb of the son of Menoitios. But the gods, looking on, pitied Hector.<cite>— Homer, Iliad Book XXIV (tr. Lattimore)</cite>' },
+    text:'Achilles pierces Hector\'s heels and ties the body to his chariot. He drives it around the walls of Troy, once, twice, three times. Priam and Hecuba watch from the walls. Andromache, braiding her hair inside, hears the wailing and runs to look. She faints. Apollo wraps the body in his golden aegis so it will not tear. For twelve days Achilles drags Hector\'s body and weeps at Patroclus\'s tomb. Zeus has had enough.',
+    lore:'<strong>The Limits of Rage</strong>Achilles\'s treatment of Hector\'s body is the poem\'s moral low point, and deliberately so. The Greeks held that the dead must be returned for burial; without rites, the soul wandered. Apollo and then Zeus himself intervene to preserve the corpse from damage, despite Achilles. The twelve days of dragging set up the ending: Achilles has gone so far into his grief and rage that the only way out is across a line he cannot imagine crossing. Then an old man crosses it for him.',
+    quote:'He devised foul treatment for glorious Hector, dragging him behind his chariot near the tomb of the son of Menoitios. But the gods, looking on, pitied Hector.<cite>Homer, Iliad Book XXIV (tr. Lattimore)</cite>' },
 
   { name:'Priam Comes at Night', lon:25.2, lat:38.9, daysAdd:1, hasScene:true,
-    text:'An old man comes alone through the dark to the tent of the man who killed his son. He brings ransom. He takes Achilles\'s hand — the hand that killed his children — and says: Remember your own father. He waits for a son who may not return, as I wait. But I am worse than him. I have kissed the hands of the man who killed my children. Achilles weeps. The killer and the father weep together.',
-    scenePrompt:'He kneels before you. He takes your hand — the hand that killed his son. He looks at you and says: remember your father.',
-    lore:'<strong>The Final Scene (Book XXIV)</strong>The last scene of the Iliad is the most moving moment in Homer — and arguably in all of ancient literature. Priam has traveled alone through enemy lines, guided by Hermes, to beg for his son\'s body. The scene works because both men see each other clearly: Achilles recognizes his own father in Priam; Priam endures the terrible intimacy of kneeling before the killer. The Iliad ends not with victory but with grief shared across the line of enmity. Both men cry. Then Achilles gives the body back.',
-    quote:'"Remember your father, Achilles, whose years are like mine — / old age, standing at the sorrowful threshold. / Perhaps he is being worn down there by those around him, / and there is no one to protect him from harm and disaster."<cite>— Priam, Iliad Book XXIV (tr. Fagles)</cite>',
+    text:'An old man comes alone through the dark to the tent of the man who killed his son. He brings ransom. He takes Achilles\'s hand, the hand that killed his children, and says: Remember your own father. He waits for a son who may not return, as I wait. But I am worse than him. I have kissed the hands of the man who killed my children. Achilles weeps. The killer and the father weep together.',
+    scenePrompt:'He kneels before you. He takes your hand, the hand that killed his son. He looks at you and says: remember your father.',
+    lore:'<strong>The Final Scene (Book XXIV)</strong>The last scene of the Iliad is the most moving moment in Homer, and arguably in all of ancient literature. Priam has traveled alone through enemy lines, guided by Hermes, to beg for his son\'s body. The scene works because both men see each other clearly: Achilles recognizes his own father in Priam; Priam endures the terrible intimacy of kneeling before the killer. The Iliad ends not with victory but with grief shared across the line of enmity. Both men cry. Then Achilles gives the body back.',
+    quote:'"Remember your father, Achilles, whose years are like mine, / old age, standing at the sorrowful threshold. / Perhaps he is being worn down there by those around him, / and there is no one to protect him from harm and disaster."<cite>Priam, Iliad Book XXIV (tr. Fagles)</cite>',
     choices:[
       { id:'return', label:"Return Hector's body. Give them twelve days to mourn." },
       { id:'refuse', label:'Keep it. Your grief has no end.' }
@@ -375,13 +375,13 @@ function drawWarrior(x, y) {
 function renderMap() {
   cx.clearRect(0, 0, W, H);
 
-  // Sea — teal
+  // Sea, teal
   const sea = cx.createLinearGradient(0, 0, 0, H);
   sea.addColorStop(0, '#74b8cc');
   sea.addColorStop(1, '#4e9cb8');
   cx.fillStyle = sea; cx.fillRect(0, 0, W, H);
 
-  // Land — warm cream
+  // Land, warm cream
   for (const pts of landmasses) poly(pts, '#e8d888', '#b8a048');
 
   // Region labels
@@ -409,7 +409,7 @@ function renderMap() {
   }
   cx.textBaseline = 'alphabetic';
 
-  // Troy marker — walled city symbol
+  // Troy marker, walled city symbol
   const [tx, ty] = pt(26.24, 39.96);
   cx.save();
   cx.shadowColor = 'rgba(200,60,20,0.5)'; cx.shadowBlur = 8;
@@ -474,7 +474,7 @@ function renderMap() {
     cx.textBaseline = 'alphabetic';
 
     if (isCur || isNext || (isVis && i >= g.cur - 2)) {
-      const label = s.name.split('—')[0].trim().split(' — ')[0];
+      const label = s.name.split(' / ')[0].trim().split(', ')[0];
       cx.font = isCur ? 'bold 11px Georgia' : '10px Georgia';
       cx.textAlign = 'center';
       const above = s.lat > 39.8;
@@ -502,8 +502,8 @@ function handleChoice(id) {
   const s = stops[g.cur];
   if (s.name.includes('Hector and Andromache')) {
     if (id === 'stay') {
-      document.getElementById('loc-name').textContent = 'The Scaean Gates — He Stays';
-      document.getElementById('myth').textContent = 'He stays. Troy falls faster for it. Andromache watches the Greeks burn the city. She is taken as a slave. Astyanax is thrown from the walls. There is no version of the Trojan story that ends well — but this one ends faster, and without Hector. The gods had already decided. The only question was how much he would cost the Greeks before the end.';
+      document.getElementById('loc-name').textContent = 'The Scaean Gates, He Stays';
+      document.getElementById('myth').textContent = 'He stays. Troy falls faster for it. Andromache watches the Greeks burn the city. She is taken as a slave. Astyanax is thrown from the walls. There is no version of the Trojan story that ends well, but this one ends faster, and without Hector. The gods had already decided. The only question was how much he would cost the Greeks before the end.';
     } else {
       document.getElementById('myth').textContent = 'He kisses his son and returns to the battle. He does not look back. Andromache orders the women to prepare his hot bath for when he comes home. He never comes back.';
       setTimeout(() => advance(), 2000);
@@ -511,17 +511,17 @@ function handleChoice(id) {
     }
   } else if (s.name.includes('Embassy')) {
     if (id === 'accept') {
-      document.getElementById('loc-name').textContent = 'Achilles Returns — Early';
-      document.getElementById('myth').textContent = 'You return. The Greeks win. Patroclus lives. Hector dies in a clean fight — he dies well. The war ends. You sail home. Your mother told you: long life or short glory. Here you chose long life. You will die in old age, remembered only faintly. Somewhere in the deep future, a poet named Homer writes a poem about a different choice you made. This is not that poem.';
+      document.getElementById('loc-name').textContent = 'Achilles Returns, Early';
+      document.getElementById('myth').textContent = 'You return. The Greeks win. Patroclus lives. Hector dies in a clean fight, he dies well. The war ends. You sail home. Your mother told you: long life or short glory. Here you chose long life. You will die in old age, remembered only faintly. Somewhere in the deep future, a poet named Homer writes a poem about a different choice you made. This is not that poem.';
     } else {
-      document.getElementById('myth').textContent = 'You refuse. Odysseus reports back with nothing. The Greeks break. Patroclus dies. You return. Hector dies. You die before Troy falls. Everything that follows — the entire poem — flows from this refusal.';
+      document.getElementById('myth').textContent = 'You refuse. Odysseus reports back with nothing. The Greeks break. Patroclus dies. You return. Hector dies. You die before Troy falls. Everything that follows, the entire poem, flows from this refusal.';
       setTimeout(() => advance(), 2000);
       return;
     }
   } else if (s.name.includes('Duel')) {
     if (id === 'spare') {
-      document.getElementById('loc-name').textContent = 'Outside Troy — You Lower Your Spear';
-      document.getElementById('myth').textContent = 'The moment you lower your spear, Athena vanishes. Hector stands. He did not come here to be spared — he came here because he had nowhere else to go. He attacks. The choice was never real. You kill him anyway, but now it feels like self-defense, and the gods look away.';
+      document.getElementById('loc-name').textContent = 'Outside Troy, You Lower Your Spear';
+      document.getElementById('myth').textContent = 'The moment you lower your spear, Athena vanishes. Hector stands. He did not come here to be spared, he came here because he had nowhere else to go. He attacks. The choice was never real. You kill him anyway, but now it feels like self-defense, and the gods look away.';
     } else {
       document.getElementById('myth').textContent = '"For Patroclus." The spear goes through his throat. He falls in the dust and says his last words: you will be dead soon too. He is right. You strip his armor. You drag him home.';
       setTimeout(() => advance(), 2000);
@@ -529,11 +529,11 @@ function handleChoice(id) {
     }
   } else if (s.name.includes('Priam')) {
     if (id === 'refuse') {
-      document.getElementById('loc-name').textContent = "Achilles's Tent — You Cannot";
-      document.getElementById('myth').textContent = "You cannot. He is there, in front of you, taking your hand — the hand that killed his son — and you feel it: the thing you have been calling grief is also grief. You lift him up. You weep together. You give him the body. You agree to twelve days of peace for the funeral. The Iliad ends here.";
+      document.getElementById('loc-name').textContent = "Achilles's Tent, You Cannot";
+      document.getElementById('myth').textContent = "You cannot. He is there, in front of you, taking your hand, the hand that killed his son, and you feel it: the thing you have been calling grief is also grief. You lift him up. You weep together. You give him the body. You agree to twelve days of peace for the funeral. The Iliad ends here.";
     } else {
       document.getElementById('loc-name').textContent = 'Achilles and Priam';
-      document.getElementById('myth').textContent = "You lift him up. You see your own father. You weep together — killer and father, across the line of enmity, seeing each other completely. You agree to twelve days so Troy can bury its greatest son. The Iliad ends with Hector's funeral. You will be dead before spring. But you did this one right thing.";
+      document.getElementById('myth').textContent = "You lift him up. You see your own father. You weep together, killer and father, across the line of enmity, seeing each other completely. You agree to twelve days so Troy can bury its greatest son. The Iliad ends with Hector's funeral. You will be dead before spring. But you did this one right thing.";
     }
     document.getElementById('btns').innerHTML = '<button class="btn" disabled>The poem ends.</button>';
     return;
@@ -578,7 +578,7 @@ function updatePanel() {
     btns.innerHTML = '<button class="btn" disabled>The poem ends.</button>';
   } else {
     document.getElementById('myth').textContent = s.text;
-    const nxt = stops[g.cur + 1].name.split('—')[0].trim();
+    const nxt = stops[g.cur + 1].name.split(' / ')[0].trim();
     btns.innerHTML = `<button class="btn" onclick="advance()">→ ${nxt}</button>`;
   }
 
