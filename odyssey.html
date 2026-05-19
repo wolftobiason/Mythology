@@ -618,17 +618,49 @@ function drawCalypsoImage(t, HZ) {
 
   cx.restore();
 
-  // Floating light motes
-  for (let m=0;m<8;m++){
-    const ang=(m/8)*Math.PI*2+t*0.00028;
-    const rad=110+Math.sin(t*0.0004+m)*18;
-    const mx2=calX+Math.cos(ang)*rad*0.9;
-    const my2=H*0.38+Math.sin(ang)*rad*0.55;
-    if (my2 < HZ-4){
-      const ma=0.3+0.2*Math.sin(t*0.0009+m*1.4);
-      cx.beginPath(); cx.arc(mx2,my2,1.8,0,Math.PI*2);
-      cx.fillStyle=`rgba(255,220,120,${ma})`; cx.fill();
+  // ── Sparkles ──────────────────────────────────────────────────
+  // Fixed sky glints — scattered in upper portion, never near her face
+  const GLINT_POS = [
+    {bx:0.08,by:0.06},{bx:0.18,by:0.14},{bx:0.82,by:0.08},{bx:0.91,by:0.19},
+    {bx:0.72,by:0.05},{bx:0.04,by:0.22},{bx:0.88,by:0.32},{bx:0.12,by:0.31},
+    {bx:0.78,by:0.24},{bx:0.25,by:0.07},{bx:0.95,by:0.13},{bx:0.60,by:0.04},
+  ];
+  GLINT_POS.forEach((g2,i)=>{
+    const gx=g2.bx*W, gy=g2.by*H;
+    const pulse=0.5+0.5*Math.sin(t*0.0008+i*1.9);
+    const alpha=0.18+0.55*pulse;
+    const r=1.6+pulse*2.8;
+    cx.save();
+    cx.translate(gx,gy); cx.rotate(t*0.0001+i*0.6);
+    cx.shadowColor=`rgba(255,230,160,${alpha})`; cx.shadowBlur=r*4;
+    cx.beginPath();
+    for (let k=0;k<8;k++){
+      const a=(k/8)*Math.PI*2, rr=k%2===0?r:r*0.22;
+      k===0?cx.moveTo(Math.cos(a)*rr,Math.sin(a)*rr):cx.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);
     }
+    cx.closePath(); cx.fillStyle=`rgba(255,248,210,${alpha})`; cx.fill();
+    cx.shadowBlur=0; cx.restore();
+  });
+
+  // Rising motes — start below horizon, drift upward and fade
+  for (let d=0;d<14;d++){
+    const seed=d*173.7;
+    const xFrac=((seed*61)%100)/100;
+    const px=(xFrac<0.5 ? xFrac*0.38 : 0.62+xFrac*0.38)*W;
+    const cycleTime=6000+(d*430)%4000;
+    const phase=((t+d*700)%cycleTime)/cycleTime;
+    const py=HZ+8-phase*(H*0.68);
+    if (py<10||py>HZ+10) continue;
+    const fadeIn=Math.min(phase*5,1), fadeOut=Math.min((1-phase)*4,1);
+    const a=Math.min(fadeIn,fadeOut)*0.65;
+    const r2=0.9+Math.sin(t*0.0018+d)*0.3;
+    const driftX=px+Math.sin(t*0.0006+d*1.1)*22;
+    const pg=cx.createRadialGradient(driftX,py,0,driftX,py,r2*5);
+    pg.addColorStop(0,`rgba(255,218,130,${a*0.4})`);
+    pg.addColorStop(1,'rgba(255,160,50,0)');
+    cx.fillStyle=pg; cx.beginPath(); cx.arc(driftX,py,r2*5,0,Math.PI*2); cx.fill();
+    cx.beginPath(); cx.arc(driftX,py,r2,0,Math.PI*2);
+    cx.fillStyle=`rgba(255,235,165,${a})`; cx.fill();
   }
 }
 
