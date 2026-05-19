@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Iliad — Chronicle of the Wrath of Achilles</title>
+  <style>
+    /* ── Fonts ── */
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+    /* ── Variables ── */
+    :root {
+      --parchment:   #f2e8c9;
+      --parchment-d: #e2d4a8;
+      --ink:         #2a1a08;
+      --gold:        #c8963e;
+      --gold-l:      #e8b84b;
+      --gold-d:      #8b6520;
+      --crimson:     #8b1a1a;
+      --shadow:      rgba(42,26,8,0.35);
+      --spine:       #c8963e;
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #1a0e04;
+      background-image:
+        radial-gradient(ellipse at 50% 0%, #3a200a 0%, #1a0e04 60%);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Greek Meander Border ── */
+    .meander {
+      width: 100%;
+      height: 18px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='18'%3E%3Cpath d='M0 9 h4 v-6 h8 v12 h-4 v-6 h-4 v6 h4 M20 9 h4 v-6 h8 v12 h-4 v-6 h-4 v6 h4' stroke='%23c8963e' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-position: center;
+      opacity: 0.8;
+    }
+
+    /* ── Header ── */
+    header {
+      position: relative;
+      background: linear-gradient(180deg, #2a1505 0%, #1a0e04 100%);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    header::before, header::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    header::before { top: 0; }
+    header::after  { bottom: 0; }
+
+    .header-ornament {
+      font-size: 2.5rem;
+      color: var(--gold);
+      letter-spacing: 0.5em;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 20px rgba(200,150,62,0.5);
+    }
+
+    header h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--gold-l);
+      text-shadow: 2px 2px 0 var(--gold-d), 0 0 30px rgba(232,184,75,0.4);
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    header .subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 1.25rem;
+    }
+
+    header .epigraph {
+      font-style: italic;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--parchment-d);
+      max-width: 620px;
+      margin: 0 auto;
+      opacity: 0.8;
+      line-height: 1.7;
+    }
+
+    /* ── Intro Banner ── */
+    .intro {
+      background: var(--parchment);
+      background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='100' cy='100' r='80' stroke='%23c8963e' stroke-width='0.3' fill='none' opacity='0.15'/%3E%3C/svg%3E");
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .intro p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #3a2010;
+    }
+
+    .intro .tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      border: 1px solid var(--gold-d);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      background: rgba(200,150,62,0.08);
+    }
+
+    /* ── Timeline Container ── */
+    .timeline-wrap {
+      background: var(--parchment);
+      background-image:
+        url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23c8963e' opacity='0.07'/%3E%3C/svg%3E");
+      padding: 3rem 1rem 4rem;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Center spine */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 3px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, transparent, var(--gold) 5%, var(--gold) 95%, transparent);
+      opacity: 0.6;
+    }
+
+    /* ── Timeline Entry ── */
+    .entry {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      align-items: flex-start;
+    }
+
+    /* Left entries */
+    .entry.left {
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+
+    /* ── Card ── */
+    .card {
+      flex: 1;
+      background: #fdf5e0;
+      background-image:
+        linear-gradient(135deg, rgba(200,150,62,0.06) 0%, transparent 60%);
+      border: 1px solid var(--gold-d);
+      border-radius: 3px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 3px 3px 12px var(--shadow), inset 0 0 0 1px rgba(200,150,62,0.1);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 5px 5px 18px var(--shadow), inset 0 0 0 1px rgba(200,150,62,0.25);
+    }
+
+    /* Tail pointing to spine */
+    .entry.right .card::before {
+      content: '';
+      position: absolute;
+      left: -10px; top: 22px;
+      border: 10px solid transparent;
+      border-right-color: var(--gold-d);
+    }
+    .entry.right .card::after {
+      content: '';
+      position: absolute;
+      left: -9px; top: 23px;
+      border: 9px solid transparent;
+      border-right-color: #fdf5e0;
+    }
+
+    .entry.left .card::before {
+      content: '';
+      position: absolute;
+      right: -10px; top: 22px;
+      border: 10px solid transparent;
+      border-left-color: var(--gold-d);
+    }
+    .entry.left .card::after {
+      content: '';
+      position: absolute;
+      right: -9px; top: 23px;
+      border: 9px solid transparent;
+      border-left-color: #fdf5e0;
+    }
+
+    /* ── Node on spine ── */
+    .node {
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 3px solid var(--parchment);
+      box-shadow: 0 0 0 2px var(--gold-d), 0 0 10px rgba(200,150,62,0.5);
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .node.major {
+      width: 30px; height: 30px;
+      top: 14px;
+      background: var(--crimson);
+      box-shadow: 0 0 0 2px var(--gold-d), 0 0 14px rgba(139,26,26,0.6);
+    }
+
+    /* ── Spacer to push cards off center ── */
+    .spacer {
+      flex: 0 0 calc(50% - 11px);
+    }
+    .entry.left .spacer {
+      order: -1;
+    }
+
+    /* ── Card content ── */
+    .book-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-d);
+      margin-bottom: 0.35rem;
+    }
+
+    .card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-weight: 600;
+      color: var(--crimson);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #3a2010;
+    }
+
+    .actors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .entry.left .actors {
+      justify-content: flex-end;
+    }
+
+    .actor {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      padding: 0.15rem 0.5rem;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+    }
+
+    .actor.greek   { color: #1a4a8a; background: rgba(26,74,138,0.06); }
+    .actor.trojan  { color: var(--crimson); background: rgba(139,26,26,0.06); }
+    .actor.god     { color: #5a3a8a; background: rgba(90,58,138,0.06); }
+
+    /* ── Era labels ── */
+    .era-label {
+      text-align: center;
+      margin: 2.5rem 0 2rem;
+      position: relative;
+    }
+
+    .era-label span {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-d);
+      background: var(--parchment);
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .era-label::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-d), transparent);
+    }
+
+    /* ── Legend ── */
+    .legend {
+      max-width: 860px;
+      margin: 0 auto 2rem;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 1rem;
+      border: 1px solid rgba(200,150,62,0.3);
+      border-radius: 3px;
+      background: rgba(200,150,62,0.05);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .legend-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--parchment);
+      box-shadow: 0 0 0 1.5px var(--gold-d);
+    }
+    .legend-dot.major { background: var(--crimson); }
+    .legend-dot.minor { background: var(--gold); }
+
+    /* ── Footer ── */
+    footer {
+      background: #1a0e04;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-d);
+      opacity: 0.75;
+      text-transform: uppercase;
+      line-height: 2;
+    }
+
+    footer .divider {
+      color: var(--gold);
+      margin: 0 0.75rem;
+    }
+
+    /* ── Expand panel ── */
+    .expand {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .expand.open {
+      max-height: 500px;
+    }
+
+    .expand-inner {
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px dashed rgba(200,150,62,0.4);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #4a2e12;
+      line-height: 1.8;
+    }
+
+    .expand-toggle {
+      margin-top: 0.6rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-d);
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .expand-toggle:hover { color: var(--crimson); }
+
+    .entry.left .card { text-align: right; }
+    .entry.left .expand-toggle { float: right; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .timeline::before { left: 18px; }
+      .entry, .entry.left { flex-direction: column; text-align: left; }
+      .entry .card, .entry.left .card { text-align: left; }
+      .spacer { display: none; }
+      .node { left: 18px; top: 0; }
+      .entry.right .card::before,
+      .entry.left .card::before  { display: none; }
+      .entry.right .card::after,
+      .entry.left .card::after   { display: none; }
+      .actors, .entry.left .actors { justify-content: flex-start; }
+      .entry.left .expand-toggle { float: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="header-ornament">⚔ ☽ ⚔</div>
+  <h1>The Iliad</h1>
+  <p class="subtitle">Chronicle of the Wrath of Achilles</p>
+  <p class="epigraph">
+    "Sing, O goddess, the anger of Achilles son of Peleus,<br>
+    that brought countless ills upon the Achaeans."
+  </p>
+</header>
+
+<div class="meander"></div>
+
+<!-- ══ INTRO ══════════════════════════════════════════════════════════════ -->
+<div class="intro">
+  <p>
+    Homer's <em>Iliad</em> unfolds across <strong>51 days</strong> in the tenth year of the Trojan War,
+    driven by a single act of pride and the devastating chain of wrath it unleashes.
+    This chronicle traces every major turning point — from Apollo's plague to Hector's burial.
+  </p>
+  <div class="tag-row">
+    <span class="tag">24 Books</span>
+    <span class="tag">51 Days</span>
+    <span class="tag">~15,700 Lines</span>
+    <span class="tag">Year 10 of the Siege</span>
+  </div>
+</div>
+
+<!-- ══ TIMELINE ════════════════════════════════════════════════════════════ -->
+<div class="timeline-wrap">
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot major"></span> Pivotal Event</span>
+    <span class="legend-item"><span class="legend-dot minor"></span> Major Event</span>
+    <span class="legend-item"><span class="actor greek" style="border-radius:2px;padding:2px 6px;font-size:.68rem">Greek</span> Achaean figure</span>
+    <span class="legend-item"><span class="actor trojan" style="border-radius:2px;padding:2px 6px;font-size:.68rem">Trojan</span> Trojan figure</span>
+    <span class="legend-item"><span class="actor god" style="border-radius:2px;padding:2px 6px;font-size:.68rem">God</span> Olympian deity</span>
+  </div>
+
+  <div class="timeline">
+
+    <!-- ── ACT I ── -->
+    <div class="era-label"><span>Act I · The Wrath Begins</span></div>
+
+    <!-- 1 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book I · Day 1–12</div>
+        <h3>Apollo's Plague</h3>
+        <p>The priest Chryses begs Agamemnon to return his daughter. Refused, he prays to Apollo, who rains arrows of pestilence upon the Greek camp for nine days.</p>
+        <div class="actors">
+          <span class="actor god">Apollo</span>
+          <span class="actor greek">Agamemnon</span>
+          <span class="actor greek">Chryses</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            "Far-shooting Apollo" descends from Olympus, his arrows clattering on his silver bow. For nine days the pyres burn. On the tenth, Achilles calls an assembly — the first crack in the Greek command structure that will fracture into open war between heroes.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Book I · Day 10</div>
+        <h3>The Quarrel of Kings</h3>
+        <p>Achilles demands Agamemnon return Chryseis. Agamemnon agrees — then seizes Achilles' prize, the captive Briseis. Achilles erupts in fury.</p>
+        <div class="actors">
+          <span class="actor greek">Achilles</span>
+          <span class="actor greek">Agamemnon</span>
+          <span class="actor greek">Briseis</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Achilles draws his sword — then Athena appears, invisible to all others, and restrains him. He sheathes it, hurling words instead. "You wine-sack with the eyes of a dog." He vows never to fight for the Greeks again, a vow that will cost thousands their lives.
+          </div>
+        </div>
+      </div>
+      <div class="node major"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book I · Day 10–21</div>
+        <h3>Achilles Withdraws</h3>
+        <p>Achilles retreats to his ships and prays to his mother Thetis. She ascends to Olympus and asks Zeus to let the Trojans prevail until her son is honored.</p>
+        <div class="actors">
+          <span class="actor greek">Achilles</span>
+          <span class="actor god">Thetis</span>
+          <span class="actor god">Zeus</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Zeus nods — the divine gesture that shakes Olympus — and the fate of thousands is sealed. This "plan of Zeus" runs throughout the epic as the gods manipulate the war to fulfill this single promise. Hera immediately suspects and quarrels with Zeus; Hephaestus makes peace on Olympus while below, men will die.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ── ACT II ── -->
+    <div class="era-label"><span>Act II · The War Without Achilles</span></div>
+
+    <!-- 4 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Book II · Day 22</div>
+        <h3>The Catalogue of Ships</h3>
+        <p>Zeus sends a false dream urging Agamemnon to attack. The Greek host musters — Homer lists every contingent in the famous Catalogue, 1,186 ships from 29 kingdoms.</p>
+        <div class="actors">
+          <span class="actor greek">Agamemnon</span>
+          <span class="actor god">Zeus</span>
+          <span class="actor greek">Odysseus</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Thersites, the ugliest and most insolent of the Greeks, urges the army to sail home. Odysseus beats him into silence. The Catalogue of Ships that follows is among the most debated passages in ancient literature — possibly drawn from a Bronze Age administrative source.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book III · Day 22</div>
+        <h3>Paris vs. Menelaus</h3>
+        <p>To spare further bloodshed, Paris challenges Menelaus to single combat. Whoever wins keeps Helen and ends the war. Menelaus wins — but Aphrodite spirits Paris away.</p>
+        <div class="actors">
+          <span class="actor trojan">Paris</span>
+          <span class="actor greek">Menelaus</span>
+          <span class="actor god">Aphrodite</span>
+          <span class="actor trojan">Helen</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Menelaus seizes Paris by the helm and drags him across the field. The strap breaks. Aphrodite wraps Paris in a mist and deposits him in his bedchamber with Helen, who scorns him — briefly. The duel that should have ended everything instead changes nothing. The war must go on.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Book IV · Day 22</div>
+        <h3>The Truce Broken</h3>
+        <p>Athena tricks the Trojan archer Pandarus into shooting Menelaus, shattering the truce. Full battle erupts across the plain of Troy.</p>
+        <div class="actors">
+          <span class="actor god">Athena</span>
+          <span class="actor trojan">Pandarus</span>
+          <span class="actor greek">Menelaus</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            The arrow pierces Menelaus's belt — a wound, not fatal, deliberately so by Athena's hand. The gods favor different sides; neither will let the war end peacefully. Agamemnon rallies the troops with a speech mixing encouragement and insult in equal measure.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Books V–VI · Day 22</div>
+        <h3>Diomedes' Aristeia</h3>
+        <p>Diomedes rampages through the Trojan host, wounding Aphrodite and even Ares himself. He stands as the epic's greatest fighter while Achilles sits idle.</p>
+        <div class="actors">
+          <span class="actor greek">Diomedes</span>
+          <span class="actor god">Aphrodite</span>
+          <span class="actor god">Ares</span>
+          <span class="actor god">Athena</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            An aristeia is a hero's moment of supreme battlefield glory. Diomedes' is the longest in the poem. Athena guides his spear-thrust into Ares's flank — the god of war himself cries out "as loud as nine or ten thousand men" and flees to Olympus to complain. Zeus mocks him.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Book VI · Day 22</div>
+        <h3>Hector & Andromache</h3>
+        <p>Hector enters Troy to arrange prayers. He finds his wife Andromache and infant son Astyanax at the city walls — their farewell, one of the most tender scenes in all of literature.</p>
+        <div class="actors">
+          <span class="actor trojan">Hector</span>
+          <span class="actor trojan">Andromache</span>
+          <span class="actor trojan">Astyanax</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Hector reaches for his son, but the child cries at his father's gleaming helmet. Hector removes it, laughing, and holds the boy aloft in prayer. Andromache weeps, foreseeing his death. He knows he will die, that Troy will fall — and goes back to battle anyway. This is heroism: not hope, but duty.
+          </div>
+        </div>
+      </div>
+      <div class="node major"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book VII · Day 23</div>
+        <h3>Ajax vs. Hector</h3>
+        <p>Hector challenges any Greek to single combat. Ajax the Greater answers. They fight to a standstill at sunset; heralds separate them and they exchange gifts.</p>
+        <div class="actors">
+          <span class="actor greek">Ajax</span>
+          <span class="actor trojan">Hector</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            The duel ends in mutual respect — a rare pause in the poem's brutality. Ajax gives Hector his sword-belt; Hector gives Ajax his purple sword. Both gifts will later become instruments of tragedy: Ajax will use Hector's sword in his own suicide, and Achilles will drag Hector's body by the belt.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Books IX–X · Day 24</div>
+        <h3>The Embassy to Achilles</h3>
+        <p>With the Greeks badly pressed, Agamemnon sends Phoenix, Ajax, and Odysseus to offer Achilles vast gifts and Briseis returned. Achilles refuses all.</p>
+        <div class="actors">
+          <span class="actor greek">Achilles</span>
+          <span class="actor greek">Odysseus</span>
+          <span class="actor greek">Ajax</span>
+          <span class="actor greek">Phoenix</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Achilles' speech to the embassy is the most philosophically dense in the poem. He rejects the heroic code itself: "A man's life cannot come back again, it cannot be lifted or captured." He speaks of two fates — long life without glory, or a short life immortalized in song. He has not yet decided.
+          </div>
+        </div>
+      </div>
+      <div class="node major"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ── ACT III ── -->
+    <div class="era-label"><span>Act III · The Fall of Patroclus</span></div>
+
+    <!-- 11 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Books XIII–XV · Days 25–26</div>
+        <h3>The Trojans Breach the Wall</h3>
+        <p>While Zeus is distracted by Hera's seduction, Poseidon bolsters the Greeks. When Zeus wakes, he drives the Trojans to the Greek ships — Hector breaches the wall and sets ships ablaze.</p>
+        <div class="actors">
+          <span class="actor trojan">Hector</span>
+          <span class="actor god">Zeus</span>
+          <span class="actor god">Hera</span>
+          <span class="actor god">Poseidon</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Hera seduces Zeus on Mount Ida, borrowing Aphrodite's girdle of desire. While Zeus sleeps, Poseidon rallies the Greeks. Zeus wakes furious, accuses Hera, then reasserts control with devastating swiftness — reminding gods and men alike of his supreme power.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 12 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Book XVI · Day 27</div>
+        <h3>Patroclus Enters the Field</h3>
+        <p>Unable to bear watching the Greeks burn, Patroclus begs Achilles to let him lead the Myrmidons in Achilles' armor. Achilles agrees — but warns him not to pursue the Trojans to the walls.</p>
+        <div class="actors">
+          <span class="actor greek">Patroclus</span>
+          <span class="actor greek">Achilles</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Patroclus weeps as he pleads with Achilles — a remarkable image of the era's most feared warrior being moved by his companion's tears. Achilles' warning is clear: rout them, save the ships, come back. Pride and glory drive Patroclus beyond the limit. He will not come back.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 13 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book XVI · Day 27</div>
+        <h3>The Death of Patroclus</h3>
+        <p>Patroclus routs the Trojans and reaches the city walls — ignoring Achilles' command. Apollo stuns him; Euphorbus wounds him; Hector delivers the killing blow.</p>
+        <div class="actors">
+          <span class="actor greek">Patroclus</span>
+          <span class="actor trojan">Hector</span>
+          <span class="actor god">Apollo</span>
+          <span class="actor trojan">Euphorbus</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Apollo strips Patroclus of Achilles' divine armor. Dazed, he stands weaponless. Euphorbus spears him from behind. Hector finishes him. His last words to Hector are a prophecy: "You yourself are not long for the light — already death and powerful fate are standing beside you." The wrath of Achilles enters its final, terrible phase.
+          </div>
+        </div>
+      </div>
+      <div class="node major"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ── ACT IV ── -->
+    <div class="era-label"><span>Act IV · The Return of Achilles</span></div>
+
+    <!-- 14 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Books XVII–XVIII · Day 27</div>
+        <h3>Achilles Learns & Grieves</h3>
+        <p>Antilochus brings word to Achilles. He collapses in the dust, screaming. His grief is so terrible that Thetis hears him from beneath the sea and ascends to mourn with him.</p>
+        <div class="actors">
+          <span class="actor greek">Achilles</span>
+          <span class="actor god">Thetis</span>
+          <span class="actor greek">Antilochus</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            The sound of Achilles' grief makes the sea-nymphs weep and all the Nereids gather. Thetis holds her son and asks what has happened. He tells her. She weeps — knowing what his return to battle means. His fate: if he avenges Patroclus, he will die soon after. He chooses it without hesitation.
+          </div>
+        </div>
+      </div>
+      <div class="node major"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 15 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book XVIII · Night of Day 27</div>
+        <h3>The Shield of Achilles</h3>
+        <p>Thetis commissions Hephaestus to forge new divine armor. On the great shield, the god hammers the entire world — cities at peace and war, harvests, dances, the ocean's rim.</p>
+        <div class="actors">
+          <span class="actor god">Hephaestus</span>
+          <span class="actor god">Thetis</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            The Shield ekphrasis (a literary description of an artwork) is Homer's image of the world outside the war — life continuing, beautiful and brutal in equal measure, indifferent to the heroes' fates. It places the Iliad's violence inside the context of all human experience. The shield is the world; Achilles carries the world into battle.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 16 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Books XIX–XXI · Day 28</div>
+        <h3>Achilles' Aristeia</h3>
+        <p>Achilles reconciles with Agamemnon, dons his new armor, and re-enters battle. He cuts through the Trojan host like a wildfire, filling the Scamander river with corpses.</p>
+        <div class="actors">
+          <span class="actor greek">Achilles</span>
+          <span class="actor greek">Agamemnon</span>
+          <span class="actor god">Xanthus (river god)</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            The river Xanthus rises against Achilles, choked with the dead he has piled in it. Achilles nearly drowns — the one moment the invincible warrior is in mortal peril from the land itself. Hephaestus and Poseidon intervene. Even the gods must work to contain him.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ── ACT V ── -->
+    <div class="era-label"><span>Act V · Hector's End & Reconciliation</span></div>
+
+    <!-- 17 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book XXII · Day 28</div>
+        <h3>The Death of Hector</h3>
+        <p>Hector stands alone outside the gates as all of Troy watches. He flees. Achilles chases him three times around the city walls before Athena tricks Hector into turning to fight.</p>
+        <div class="actors">
+          <span class="actor trojan">Hector</span>
+          <span class="actor greek">Achilles</span>
+          <span class="actor god">Athena</span>
+          <span class="actor god">Zeus</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Zeus lifts his golden scales — Hector's fate sinks. Athena appears to Hector as his brother Deiphobos, urging him to stand and fight together. He turns, hurls his spear, reaches for his second — finds no one. Understands the trick. "The gods have summoned me to death." He draws his sword and charges. Achilles' spear finds the gap between neck and shoulder.
+          </div>
+        </div>
+      </div>
+      <div class="node major"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 18 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Book XXII · Day 28</div>
+        <h3>The Desecration of Hector</h3>
+        <p>Achilles pierces Hector's heels, lashes him behind his chariot, and drags him around Patroclus's tomb. He repeats this for twelve days. The gods look on, disturbed.</p>
+        <div class="actors">
+          <span class="actor greek">Achilles</span>
+          <span class="actor trojan">Hector</span>
+          <span class="actor god">Apollo</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            Apollo shields the body from decay and disfigurement. Even in death, the gods protect what remains of Hector's dignity. Meanwhile on Olympus, Zeus and Apollo debate whether to let the desecration continue. It has crossed a line — even by this world's brutal standards, Achilles has gone too far.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 19 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book XXIII · Days 29–40</div>
+        <h3>Funeral Games for Patroclus</h3>
+        <p>Achilles holds elaborate funeral games in Patroclus's honor — chariot races, boxing, wrestling, archery. He presides with unexpected generosity.</p>
+        <div class="actors">
+          <span class="actor greek">Achilles</span>
+          <span class="actor greek">Diomedes</span>
+          <span class="actor greek">Ajax</span>
+          <span class="actor greek">Odysseus</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            The games are a small world of Greek values — competition, excellence, honor — compressed into a day. Achilles, transformed by grief, settles disputes calmly, grants prizes generously, even gives old Nestor a consolation gift. The man who could not share his prize-girl now gives freely. Grief has taught him something about what matters.
+          </div>
+        </div>
+      </div>
+      <div class="node"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 20 -->
+    <div class="entry left">
+      <div class="card">
+        <div class="book-tag">Book XXIV · Day 51</div>
+        <h3>Priam Ransoms Hector</h3>
+        <p>Zeus commands Achilles to accept ransom. Guided by Hermes through the Greek camp, the aged king Priam enters Achilles' tent alone and begs for his son's body — invoking the name of Achilles' own father.</p>
+        <div class="actors">
+          <span class="actor trojan">Priam</span>
+          <span class="actor greek">Achilles</span>
+          <span class="actor god">Zeus</span>
+          <span class="actor god">Hermes</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            "I have endured what no man has endured before — I have kissed the hands of the man who killed my children." Achilles weeps — for Patroclus, for his own father Peleus whom he will never see again. They weep together, enemy and conqueror, in one of the most moving moments in world literature. He agrees. He gives back the body.
+          </div>
+        </div>
+      </div>
+      <div class="node major"></div>
+      <div class="spacer"></div>
+    </div>
+
+    <!-- 21 -->
+    <div class="entry right">
+      <div class="card">
+        <div class="book-tag">Book XXIV · Day 51</div>
+        <h3>Hector's Burial</h3>
+        <p>Troy mourns for nine days. On the tenth, Hector is placed on the pyre. The Iliad ends here — not with the fall of Troy or the death of Achilles, but with the burial of Troy's greatest defender.</p>
+        <div class="actors">
+          <span class="actor trojan">Hector</span>
+          <span class="actor trojan">Andromache</span>
+          <span class="actor trojan">Priam</span>
+          <span class="actor trojan">Hecuba</span>
+        </div>
+        <button class="expand-toggle" onclick="toggleExpand(this)">▾ Read more</button>
+        <div class="expand">
+          <div class="expand-inner">
+            "So the Trojans buried Hector, breaker of horses." The final line is deliberately understated. Troy will fall, Achilles will die, Priam will be slaughtered — but Homer does not show us these things. The Iliad is not a story of victory or defeat. It is a meditation on wrath, loss, and the brief flicker of human life against the indifference of the gods.
+          </div>
+        </div>
+      </div>
+      <div class="node major"></div>
+      <div class="spacer"></div>
+    </div>
+
+  </div><!-- /.timeline -->
+</div><!-- /.timeline-wrap -->
+
+<div class="meander"></div>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer>
+  <p>
+    Homer <span class="divider">·</span> 8th Century BCE
+    <span class="divider">·</span> Translated by numerous hands across millennia
+  </p>
+  <p style="margin-top:.5rem; font-size:.7rem; opacity:.5; letter-spacing:.1em;">
+    "μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος" — Sing, O Goddess, the wrath of Achilles
+  </p>
+</footer>
+
+<script>
+  function toggleExpand(btn) {
+    const card = btn.closest('.card');
+    const panel = card.querySelector('.expand');
+    const isOpen = panel.classList.contains('open');
+
+    panel.classList.toggle('open', !isOpen);
+    btn.textContent = isOpen ? '▾ Read more' : '▴ Less';
+  }
+
+  // Animate entries on scroll
+  const entries = document.querySelectorAll('.entry');
+  const observer = new IntersectionObserver(
+    (observed) => {
+      observed.forEach(({ target, isIntersecting }) => {
+        if (isIntersecting) {
+          target.style.opacity = '1';
+          target.style.transform = 'translateY(0)';
+          observer.unobserve(target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  entries.forEach((el) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

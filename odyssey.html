@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ΟΔΥΣΣΕΙΑ — The Long Way Home</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #120c06;
+  color: #e8d5a3;
+  font-family: Georgia, 'Times New Roman', serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+}
+h1 {
+  font-size: 2.2em;
+  letter-spacing: 0.35em;
+  color: #f0c060;
+  margin-bottom: 4px;
+  text-shadow: 0 0 40px rgba(240,192,96,0.4);
+}
+.subtitle {
+  font-style: italic;
+  color: #806830;
+  margin-bottom: 20px;
+  letter-spacing: 0.12em;
+  font-size: 0.9em;
+}
+#game-wrap { width: 100%; max-width: 940px; }
+canvas {
+  display: block;
+  width: 100%;
+  border: 1px solid #7a9aaa;
+  box-shadow: 0 4px 50px rgba(0,0,0,0.9);
+}
+#panel {
+  background: #150f07;
+  border: 1px solid #7a9aaa;
+  border-top: none;
+  padding: 20px 26px 24px;
+}
+#loc-name {
+  font-size: 1.25em;
+  color: #f0c060;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+#stats {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 14px;
+  font-size: 0.8em;
+  color: #806830;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #2a1e0a;
+}
+.sv { color: #f0c060; font-weight: bold; }
+#myth {
+  line-height: 1.8;
+  color: #c4b07a;
+  font-size: 0.92em;
+  margin-bottom: 18px;
+  min-height: 4em;
+}
+.btn {
+  background: transparent;
+  color: #c0a050;
+  border: 1px solid #6a4818;
+  padding: 9px 22px;
+  font-family: Georgia, serif;
+  font-size: 0.88em;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: border-color 0.2s, color 0.2s;
+  margin-right: 12px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.btn:hover:not(:disabled) { border-color: #f0c060; color: #f0e0a0; }
+.btn:disabled { opacity: 0.3; cursor: default; }
+.btn-gold { border-color: #8a5a18; color: #d8b860; }
+#progress { font-size: 0.72em; color: #4a3818; margin-top: 10px; letter-spacing: 0.05em; }
+#lore {
+  display: none;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #2a1e0a;
+  font-size: 0.78em;
+  color: #7a6640;
+  line-height: 1.7;
+}
+#lore strong { color: #a08040; display: block; margin-bottom: 4px; letter-spacing: 0.08em; font-size: 0.95em; }
+#lore.visible { display: block; }
+#quote {
+  display: none;
+  margin-top: 16px;
+  padding: 12px 18px;
+  border-left: 2px solid #6a4818;
+  background: #1a1206;
+  font-style: italic;
+  font-size: 0.8em;
+  color: #a08848;
+  line-height: 1.75;
+}
+#quote cite {
+  display: block;
+  margin-top: 7px;
+  font-style: normal;
+  font-size: 0.85em;
+  color: #5a4020;
+  letter-spacing: 0.06em;
+}
+#quote.visible { display: block; }
+</style>
+</head>
+<body>
+<h1>ΟΔΥΣΣΕΙΑ</h1>
+<p class="subtitle">The Long Way Home</p>
+<div id="game-wrap">
+  <canvas id="map" width="940" height="470"></canvas>
+  <div id="panel">
+    <div id="loc-name"></div>
+    <div id="stats">
+      <span>Crew: <span class="sv" id="s-crew"></span></span>
+      <span>Ships: <span class="sv" id="s-ships"></span></span>
+      <span>Years from Troy: <span class="sv" id="s-years"></span></span>
+    </div>
+    <div id="myth"></div>
+    <div id="btns"></div>
+    <div id="progress"></div>
+    <div id="quote"></div>
+    <div id="lore"></div>
+  </div>
+</div>
+
+<script>
+const C = document.getElementById('map');
+const cx = C.getContext('2d');
+const W = 940, H = 470;
+
+function pt(lon, lat) {
+  return [(lon + 7) / 44 * W, (47 - lat) / 17 * H];
+}
+
+function poly(pts, fill, stroke) {
+  cx.beginPath();
+  const [sx, sy] = pt(pts[0][0], pts[0][1]);
+  cx.moveTo(sx, sy);
+  for (let i = 1; i < pts.length; i++) {
+    const [x, y] = pt(pts[i][0], pts[i][1]);
+    cx.lineTo(x, y);
+  }
+  cx.closePath();
+  if (fill)  { cx.fillStyle = fill; cx.fill(); }
+  if (stroke){ cx.strokeStyle = stroke; cx.lineWidth = 0.7; cx.stroke(); }
+}
+
+const landmasses = [
+  [[-7,37],[-5.4,36],[-2,36.5],[1.5,38],[3,40.5],[3,43.5],[0,44],[-4,44],[-7,44],[-9,43],[-9,39],[-7,37]],
+  [[3,43.5],[8,44],[14.5,44.5],[14.5,43.8],[10,43.4],[6,43.2],[3,43.5]],
+  [[7.5,44],[14.5,45],[14,44.2],[13.5,43.5],[12,43],[11,41.5],[10.5,40],[10.3,38.5],[11,37.5],[12,37],[15,36.8],[15.5,37.5],[16,38.5],[18,40.5],[17,41.5],[14.5,45]],
+  [[12,37.8],[15.2,38],[16,37.5],[15.5,37],[13,36.8],[12.2,37.2],[12,37.8]],
+  [[8.2,41.2],[9.6,41.2],[9.6,39.4],[8.2,39.4],[8.2,41.2]],
+  [[8.6,43.1],[9.6,43.1],[9.6,41.6],[8.6,42.2],[8.6,43.1]],
+  [[19,42],[22,42.5],[24,42],[26,41.5],[26,40],[25,38.5],[23.5,38],[22,37.5],[21.5,37],[20.5,36.7],[20.8,37.5],[21.5,38.5],[21,39.5],[19.5,40.5],[19,42]],
+  [[23.5,35.7],[26.4,35.7],[26.4,35.1],[23.5,35.1],[23.5,35.7]],
+  [[26,42],[30,42.5],[37,37],[37,36],[34,36],[28,37],[26.5,38],[26,42]],
+  [[32.3,35.6],[34.2,35.6],[34.2,34.9],[32.3,34.9],[32.3,35.6]],
+  [[-7,36],[-7,30],[37,30],[37,32],[28,31],[20,31],[13,33],[7.5,37],[3,37],[-1,36.2],[-7,36]],
+];
+
+const stops = [
+  { name:'Troy — Ilium', lon:26.2, lat:39.9, yearsAdd:0,
+    text:'The war is over. Troy burns. Ten years of fighting, and now your twelve ships carry 600 men and plunder westward. You do not yet know that taunting the blinded Polyphemus will earn you the hatred of his father, Poseidon, who rules every wave you must cross.',
+    lore:'<strong>The Trojan War</strong>The war lasted ten years — provoked, in myth, when Paris of Troy carried off Helen, wife of the Spartan king Menelaus. The Greeks (Achaeans) assembled a coalition fleet under Agamemnon. Odysseus was among its cleverest commanders; it was his stratagem of the wooden horse that finally broke Troy. Homer\'s <em>Iliad</em> covers only a few weeks near the war\'s end. The <em>Odyssey</em> begins where the <em>Iliad</em> leaves off: the sack of Troy, and the long, cursed journey home.',
+    quote:'Tell me, Muse, of the man of many wiles, who wandered far and wide after he sacked the sacred citadel of Troy.<cite>— Homer, Odyssey Book I (tr. Fagles)</cite>' },
+  { name:'Ismarus — Cicones', lon:25.6, lat:41.0, crewLost:72, yearsAdd:0.1,
+    text:'Your men raid Ismarus and feast on the beach. You order departure — the Cicones will return with allies. They ignore you. At dawn, six men from every ship die before you flee. Seventy-two dead, and you have not yet left familiar waters. First lesson: soldiers who survive a war become the hardest men to command.',
+    lore:'<strong>The Cicones</strong>The Cicones were a Thracian people, allies of Troy. Homer uses their raid as the first test of Odysseus\'s authority: he gives the right order, his men refuse it, and people die. It is also the first of many moments where the crew\'s hunger — for plunder, food, or ease — works against survival. The episode sets the pattern for everything that follows.',
+    quote:'Six benches were left empty in every ship / from the long voyage out and the sharp fighting.<cite>— Homer, Odyssey Book IX (tr. Fitzgerald)</cite>' },
+  { name:'Land of the Lotus-Eaters', lon:13.3, lat:33.3, yearsAdd:0.2,
+    text:'Three men eat the lotus and forget Ithaca entirely — they weep when you drag them back. You bind them under the rowing benches. The lotus offers oblivion. You choose suffering and memory.',
+    lore:'<strong>The Lotus-Eaters</strong>Located vaguely in North Africa, this episode is brief but structurally important. The lotus is not described as pleasurable — it simply removes longing. The men who eat it stop wanting to go home. Homer treats this as catastrophic. The <em>Odyssey</em> is fundamentally a poem about the value of <em>nostos</em> — homecoming — and the lotus is its first explicit threat: not violence, but the erasure of desire.',
+    quote:'Any of them who ate the honey-sweet fruit of lotus / was unwilling to take any message back, or to go away, / but they wanted to stay there with the lotus-eating people, feeding on lotus, and forget the way home.<cite>— Homer, Odyssey Book IX (tr. Lattimore)</cite>' },
+  { name:'Island of the Cyclopes', lon:15.2, lat:37.6, crewLost:6, yearsAdd:0.2,
+    text:'Polyphemus seals you in his cave and eats six men. You blind him with a sharpened stake. Escaping under his sheep, you shout your name from the ship. He prays to his father Poseidon. This is the moment your ten years truly begin.',
+    lore:'<strong>Polyphemus</strong>The Cyclopes are sons of Poseidon — one-eyed giants who herd sheep and recognize no laws or gods. Polyphemus is not merely a monster: Homer gives him prayers, a name, a father. Odysseus\'s fatal mistake is not blinding him — it\'s pride. Escaping by the name "Nobody," he ruins it by shouting his real name across the water. Polyphemus now has a name to give Poseidon. The curse that follows — delayed homecoming, lost ships, lost crew — flows entirely from this moment of hubris.',
+    quote:'"Cyclops, if any mortal man ever asks you who it was / that inflicted upon your eye this shameful blinding, / tell him that you were blinded by Odysseus, sacker of cities."<cite>— Homer, Odyssey Book IX (tr. Lattimore)</cite>' },
+  { name:'Aeolia — Island of the Winds', lon:14.8, lat:38.6, yearsAdd:0.3,
+    text:'Aeolus gives you a bag containing every adverse wind. Nine days you sail; Ithaca appears on the horizon. You sleep. Your crew opens the bag. Every wind escapes. The storm drives you back. Aeolus refuses to help a man the gods so clearly hate.',
+    lore:'<strong>Aeolus, Keeper of the Winds</strong>Aeolus was appointed by Zeus to control the winds — not a god himself, but a favored mortal. His gift of the wind-bag is an extraordinary act of hospitality (<em>xenia</em>), the sacred Greek code of host and guest that the <em>Odyssey</em> tests repeatedly. The crew\'s suspicion — they assume the bag holds treasure Odysseus is hoarding — destroys what nine days of favorable sailing had built. Ithaca was visible. This is the closest Odysseus comes to home before the very end.',
+    quote:'They opened the bag. The winds burst out, and a violent squall / struck and swept them back to sea, weeping, away from their native land.<cite>— Homer, Odyssey Book X (tr. Fagles)</cite>' },
+  { name:'Lamos — Laestrygonians', lon:8.4, lat:40.5, shipsLost:11, laestrygonians:true, yearsAdd:0.2,
+    text:'Giant cannibals. You anchor outside the harbor; your captains moor inside. The Laestrygonians hurl boulders and spear men in the water like fish. Eleven ships destroyed. You cut your rope and flee. One ship. Forty-five men.',
+    lore:'<strong>The Laestrygonians</strong>Unlike the Cyclops episode, this one offers no cleverness, no escape plan, no heroic trick — just catastrophe. In one afternoon Odysseus loses eleven of his twelve ships and the majority of his crew. Homer never explains why Odysseus alone anchored outside the harbor. Perhaps prudence; perhaps luck. The Laestrygonians are the poem\'s bluntest statement: some disasters cannot be outwitted, only survived.',
+    quote:'Like men spearing fish they skewered my men and bore them home / to make their grisly meal. While I was still in the deep inlet / I drew my sword and cut the cable of my dark-prowed ship.<cite>— Homer, Odyssey Book X (tr. Fagles)</cite>' },
+  { name:'Aeaea — Island of Circe', lon:12.9, lat:41.7, yearsAdd:1.2,
+    text:'Circe transforms your men into pigs. Protected by the herb moly, you threaten her; she reverses the spell. A year passes in her halls. Your men remind you of home. She sends you to the House of Hades to speak with the dead prophet Tiresias.',
+    lore:'<strong>Circe</strong>Circe is a goddess — daughter of Helios the sun-god — who lives alone on Aeaea with her loom and her lions. She is the first of two divine women (Calypso is the second) who detain Odysseus. The herb moly that Hermes gives Odysseus to resist her magic is never botanically identified; ancient commentators debated it for centuries. Circe becomes an ally: she directs Odysseus to the Underworld, warns him of the Sirens, and sends him off with knowledge no living man possesses. She is dangerous, then generous — a common shape in Homer.',
+    quote:'Circe the nymph with the lovely braids, dread goddess gifted with mortal speech.<cite>— Homer, Odyssey Book X (tr. Fagles)</cite>' },
+  { name:'The House of Hades', lon:-1.5, lat:37.0, yearsAdd:0.3,
+    text:'At the edge of the world you pour blood into a trench. The dead swarm up. Tiresias warns you: do not touch the cattle of Helios on Thrinacia. Your mother tells you she died of grief while you were gone. Achilles tells you he would rather be a slave among the living than a king among the dead.',
+    lore:'<strong>The Nekuia</strong>Book XI — the katabasis, or descent to the dead — is one of Homer\'s most celebrated passages. Odysseus does not descend into Hades; he stands at its boundary and summons the shades with blood sacrifice. Three conversations define the episode: Tiresias gives the prophecy; his mother Anticleia reveals the cost of his absence at home; and Achilles, greatest of warriors, delivers the poem\'s sharpest line about mortality. The dead cannot be embraced — when Odysseus reaches for his mother she passes through his arms like smoke.',
+    quote:'"I would rather follow the plow as thrall to another man, one with no land allotted to him and not much to live on, than be a king over all the perished dead."<cite>— Achilles, Odyssey Book XI (tr. Lattimore)</cite>' },
+  { name:'The Island of the Sirens', lon:16.1, lat:38.4, yearsAdd:0.15,
+    text:'You stop your men\'s ears with wax. You alone listen, lashed to the mast. You beg and scream to be cut free. Your men row harder. The Sirens offer omniscience at the cost of everything else. You sail past.',
+    lore:'<strong>The Sirens</strong>In Homer, the Sirens are not described physically — no fish-tails, no wings. They sit in a meadow surrounded by the rotting bones of sailors. What they offer is not beauty but knowledge: "we know everything that happens on this broad earth." Their song promises total understanding. Odysseus is the only mortal to hear them and survive — but only because he is bound. He cannot act on what he learns. The Sirens represent the seduction of pure knowledge detached from consequence or return.',
+    quote:'"Come closer, famous Odysseus, Achaea\'s pride and glory — moor your ship on our coast so you can hear our song! No one who passes our way in his black vessel can flee us / till he has heard our voices pour from our lips like honey."<cite>— Homer, Odyssey Book XII (tr. Fagles)</cite>' },
+  { name:'Scylla and Charybdis', lon:15.6, lat:38.15, crewLost:6, yearsAdd:0.1,
+    text:'Steer toward Scylla: lose six to save the rest. Scylla lifts six men screaming from the oars. You had told them nothing. Knowing it would happen and being unable to stop it — this is the specific weight of command.',
+    lore:'<strong>Scylla and Charybdis</strong>Scylla is a twelve-footed monster with six heads, each with three rows of teeth, living in a sea-cliff. Charybdis is a whirlpool that swallows the sea three times daily and spits it back. The strait between them — probably modeled on the Strait of Messina — forces an impossible choice. Circe\'s advice is unsentimental: aim for Scylla, accept six deaths, save the rest. Odysseus follows it. He watches six men die knowing he chose it. Homer gives us their names.',
+    quote:'Scylla snatched six of my men from the hollow ship, / the best of them in strength and arms. I looked back toward the swift ship and the crew / and saw their feet and hands from below, already lifted high.<cite>— Homer, Odyssey Book XII (tr. Lattimore)</cite>' },
+  { name:'Thrinacia — Cattle of the Sun', lon:15.1, lat:37.0, thrinacia:true, yearsAdd:0.3,
+    text:'Storms pin you for a month. Your men slaughter the sacred cattle while you sleep. You warned them. Zeus sends a thunderbolt into the hull. Every man drowns. You alone survive — because you ate nothing.',
+    lore:'<strong>The Cattle of Helios</strong>Tiresias warned Odysseus explicitly: leave the cattle of the sun-god Helios untouched. Circe repeated the warning. Odysseus made his crew swear an oath. A month of contrary winds starved them into desperation. Their logic was practical — they were going to die anyway — but the cattle were sacred, and Zeus was watching. This is the <em>Odyssey</em>\'s clearest statement about fate and obedience: the crew\'s death was foreseeable, avoidable, and chosen. Odysseus survives because he kept the oath. He survives alone.',
+    quote:'The men went and drove the best cattle of the god Helios from nearby, for the beautiful broad-faced cattle were not far from the dark-prowed ship. The men gathered around the cattle and prayed to the gods.<cite>— Homer, Odyssey Book XII (tr. Lattimore)</cite>' },
+  { name:'Ogygia — Island of Calypso', lon:13.8, lat:35.7, calypso:true, hasScene:true, yearsAdd:7,
+    text:'Calypso pulls you from the wreckage. She is immortal, beautiful, and loves you without deception. Seven years you have wept for Ithaca on her shore.',
+    scenePrompt:'The night is still. The sea is black glass. She stands before you and makes her offer plainly. She will not make it again.',
+    lore:'<strong>Who is Calypso?</strong>Calypso (Greek: Καλυψώ, "she who conceals") is a daughter of Atlas, a sea-nymph of the island Ogygia — located by Homer at the "navel of the sea," far from all gods and men. Her name hints at her function: she conceals Odysseus from the world and from his own story for seven years. She is not a villain. She loves him genuinely and offers what no mortal can: immortality and agelessness beside her forever. When Zeus sends Hermes to order his release (Book 5), she obeys — but not without grief. She is among the most sympathetic figures in the poem. The choice Homer stages here — mortal life, remembered, versus immortal life, forgotten — is central to what the <em>Odyssey</em> argues: that identity, suffering, and return are worth more than paradise without a self.',
+    choices:[
+      { id:'immortality', label:'Accept. Stay with Calypso forever.' },
+      { id:'refuse',      label:'Refuse. Weep for Ithaca.' }
+    ]
+  },
+  { name:'Scheria — Phaeacians', lon:19.9, lat:39.8, yearsAdd:0.3,
+    text:'Poseidon wrecks your raft. You wash ashore naked and sleep under an olive tree. Princess Nausicaa finds you. The Phaeacians feast you, hear the entire voyage, then give you a ship. While you sleep it carries you to Ithaca. Twenty years have passed.',
+    lore:'<strong>The Phaeacians</strong>The Phaeacians live at the edge of the world and serve as the boundary between the mythic wandering and the real world of Ithaca. Their king Alcinous and queen Arete preside over a society of ideal hospitality — the pinnacle of <em>xenia</em>. It is to this court that Odysseus recounts the entire voyage (Books IX–XII). The Phaeacians\' magical ships sail by thought alone. After delivering Odysseus, Poseidon punishes them by turning their ship to stone — they were too helpful to a man he despised.',
+    quote:'Now I ask you, Alcinous, to send me on my way. / My voyage home has been the gods\' concern, but my heart / has always longed to reach my native land.<cite>— Homer, Odyssey Book XI (tr. Fagles)</cite>' },
+  { name:'Ithaca — Home', lon:20.7, lat:38.4, yearsAdd:0,
+    text:'Athena reveals the island to you. 108 suitors fill your palace. Penelope has held them off for twenty years. You enter disguised as a beggar. You string your own bow — the great bow no suitor could bend — and begin. When it is over the hall is quiet. You find Penelope. She tests you. You pass. You are home.',
+    lore:'<strong>Penelope</strong>Penelope is one of the great figures of the poem — not passive, but strategic. For three years she unraveled at night a burial shroud she claimed to be weaving by day, stalling the suitors. She recognizes Odysseus before she admits it, and tests him with the secret of their bed — carved from a living olive tree, immovable — before accepting him. Her intelligence matches his. Homer presents their reunion as a meeting of equals: two people who held on to each other across twenty years without ever knowing the other was still holding.',
+    quote:'Come, Eurycleia, spread the firm bed outside / the well-built room he built himself. Move the heavy bedstead out there for him, and throw the rugs and fleece and blankets on it. — "Who could move my bed?" Odysseus burst out.<cite>— Homer, Odyssey Book XXIII (tr. Fagles)</cite>' },
+];
+
+// Preload Calypso image
+const calypsoImg = new Image();
+calypsoImg.src = 'calypso.avif';
+
+// Precompute stars for Calypso scene
+const STARS = Array.from({length:220}, () => ({
+  x: Math.random() * W,
+  y: Math.random() * H * 0.66,
+  r: Math.random() * 1.4 + 0.2,
+  b: Math.random() * 0.55 + 0.45,
+  p: Math.random() * Math.PI * 2
+}));
+
+// State
+const g = {
+  cur: 0, crew: 600, ships: 12, years: 0,
+  shipLon: stops[0].lon, shipLat: stops[0].lat,
+  mode: 'map',  // 'map' | 'scene' | 'end'
+  sceneRaf: null
+};
+
+function drawShip(x, y) {
+  cx.save();
+  cx.translate(Math.round(x), Math.round(y));
+
+  // Glow halo
+  cx.shadowColor = 'rgba(240,190,80,0.6)';
+  cx.shadowBlur = 12;
+
+  // Hull
+  cx.beginPath();
+  cx.moveTo(-15, 3);
+  cx.bezierCurveTo(-15, -3, -6, -7, 0, -7);
+  cx.bezierCurveTo(7, -7, 13, -3, 15, 0);
+  cx.lineTo(18, 1);   // ram tip
+  cx.lineTo(15, 3);
+  cx.bezierCurveTo(12, 7, 5, 8, 0, 8);
+  cx.bezierCurveTo(-6, 8, -14, 7, -15, 3);
+  cx.fillStyle = '#160d04';
+  cx.fill();
+  cx.strokeStyle = '#7a4018';
+  cx.lineWidth = 1;
+  cx.stroke();
+
+  cx.shadowBlur = 0;
+
+  // Oars
+  cx.strokeStyle = '#5a3010';
+  cx.lineWidth = 0.9;
+  for (let i = -2; i <= 2; i++) {
+    cx.beginPath();
+    cx.moveTo(i * 3.2, 6);
+    cx.lineTo(i * 3.2 - 2, 11);
+    cx.stroke();
+  }
+
+  // Mast
+  cx.beginPath();
+  cx.moveTo(-1, -7);
+  cx.lineTo(-1, -24);
+  cx.strokeStyle = '#a07840';
+  cx.lineWidth = 1.6;
+  cx.stroke();
+
+  // Yard (horizontal spar)
+  cx.beginPath();
+  cx.moveTo(-12, -21);
+  cx.lineTo(9, -21);
+  cx.strokeStyle = '#a07840';
+  cx.lineWidth = 1.1;
+  cx.stroke();
+
+  // Sail (billowing slightly)
+  cx.beginPath();
+  cx.moveTo(-11, -20);
+  cx.bezierCurveTo(-13, -15, -11, -11, -10, -8);
+  cx.lineTo(8, -8);
+  cx.bezierCurveTo(9, -11, 9, -15, 8, -20);
+  cx.closePath();
+  cx.fillStyle = '#c07028';
+  cx.fill();
+  cx.strokeStyle = '#7a4010';
+  cx.lineWidth = 0.6;
+  cx.stroke();
+
+  // Sail horizontal brailing lines
+  cx.strokeStyle = 'rgba(80,40,10,0.35)';
+  cx.lineWidth = 0.7;
+  [-17, -14, -11].forEach(ty => {
+    cx.beginPath();
+    cx.moveTo(-10, ty + 1);
+    cx.lineTo(7, ty + 1);
+    cx.stroke();
+  });
+
+  // Ship's eye on bow
+  cx.beginPath();
+  cx.ellipse(13, -1, 3, 2.2, 0, 0, Math.PI * 2);
+  cx.fillStyle = '#c87828';
+  cx.fill();
+  cx.beginPath();
+  cx.ellipse(13, -1, 1.4, 1.4, 0, 0, Math.PI * 2);
+  cx.fillStyle = '#080402';
+  cx.fill();
+
+  cx.restore();
+}
+
+function applyStop(s) {
+  if (s.crewLost)       g.crew  = Math.max(1, g.crew - s.crewLost);
+  if (s.shipsLost)      g.ships = Math.max(0, g.ships - s.shipsLost);
+  if (s.laestrygonians) g.crew  = 45;
+  if (s.thrinacia)      g.crew  = 1;
+  if (s.calypso)        g.ships = 0;
+  if (s.yearsAdd)       g.years += s.yearsAdd;
+}
+
+// ── MAP DRAWING ─────────────────────────────────────────────
+
+function arrowhead(x1,y1,x2,y2){
+  const a=Math.atan2(y2-y1,x2-x1), s=7;
+  cx.beginPath();
+  cx.moveTo(x2,y2);
+  cx.lineTo(x2-s*Math.cos(a-0.38),y2-s*Math.sin(a-0.38));
+  cx.lineTo(x2-s*Math.cos(a+0.38),y2-s*Math.sin(a+0.38));
+  cx.closePath(); cx.fill();
+}
+
+function renderMap() {
+  cx.clearRect(0, 0, W, H);
+
+  // Sea — teal
+  const sea = cx.createLinearGradient(0,0,0,H);
+  sea.addColorStop(0,'#74b8cc'); sea.addColorStop(1,'#4e9cb8');
+  cx.fillStyle=sea; cx.fillRect(0,0,W,H);
+
+  // Land — warm cream
+  for (const pts of landmasses) poly(pts,'#e8d888','#b8a048');
+
+  // Region labels — crisp, rounded positions, shadow halo
+  cx.textAlign='center'; cx.textBaseline='middle';
+  cx.font='bold 11px Georgia';
+  for (const [n,lon,lat] of [
+    ['HISPANIA',-2.5,40.5],['GAUL',7,43.9],['ITALY',11.8,42.3],
+    ['GREECE',22.5,40.6],['ASIA MINOR',31,40],['AFRICA',8,32.2]
+  ]){
+    const [rx,ry]=pt(lon,lat);
+    const rx2=Math.round(rx), ry2=Math.round(ry);
+    // white halo
+    cx.shadowColor='rgba(255,248,210,0.9)'; cx.shadowBlur=4;
+    cx.fillStyle='rgba(70,45,8,0.85)';
+    cx.fillText(n,rx2,ry2);
+    cx.shadowBlur=0;
+  }
+
+  // Sea labels
+  cx.font='italic 12px Georgia';
+  for (const [n,lon,lat] of [['Mediterranean Sea',13,35.2],['Black Sea',32,43.2]]){
+    const [sx,sy]=pt(lon,lat);
+    cx.shadowColor='rgba(100,180,210,0.7)'; cx.shadowBlur=3;
+    cx.fillStyle='rgba(10,50,85,0.55)';
+    cx.fillText(n,Math.round(sx),Math.round(sy));
+    cx.shadowBlur=0;
+  }
+  cx.textBaseline='alphabetic';
+
+  // Visited path — curved red lines with arrowheads
+  if (g.cur>=1){
+    cx.save();
+    cx.strokeStyle='#b82818'; cx.fillStyle='#b82818';
+    cx.lineWidth=2; cx.lineJoin='round';
+    for (let i=1;i<=g.cur;i++){
+      const [x1,y1]=pt(stops[i-1].lon,stops[i-1].lat);
+      const [x2,y2]=pt(stops[i].lon,stops[i].lat);
+      const dx=x2-x1, dy=y2-y1, len=Math.hypot(dx,dy);
+      const nx=-dy/len, ny=dx/len, bend=len*0.18;
+      const cpx=(x1+x2)/2+nx*bend, cpy=(y1+y2)/2+ny*bend;
+      // find arrowhead position ~85% along the curve
+      const t=0.85;
+      const ax=Math.pow(1-t,2)*x1+2*(1-t)*t*cpx+t*t*x2;
+      const ay=Math.pow(1-t,2)*y1+2*(1-t)*t*cpy+t*t*y2;
+      cx.beginPath(); cx.moveTo(x1,y1);
+      cx.quadraticCurveTo(cpx,cpy,x2,y2); cx.stroke();
+      arrowhead(ax,ay,x2,y2);
+    }
+    cx.restore();
+  }
+
+  // Stop markers — numbered circles
+  stops.forEach((s,i)=>{
+    const [x,y]=pt(s.lon,s.lat);
+    const isCur=i===g.cur, isVis=i<=g.cur, isNext=i===g.cur+1;
+
+    if (isCur){
+      const glow=cx.createRadialGradient(x,y,4,x,y,20);
+      glow.addColorStop(0,'rgba(184,40,24,0.35)'); glow.addColorStop(1,'rgba(184,40,24,0)');
+      cx.beginPath(); cx.arc(x,y,20,0,Math.PI*2); cx.fillStyle=glow; cx.fill();
+    }
+
+    const r=isCur?10:isVis?8:isNext?7:6;
+    cx.beginPath(); cx.arc(x,y,r,0,Math.PI*2);
+    cx.fillStyle=isVis?'#b82818':isNext?'rgba(184,40,24,0.7)':'rgba(184,40,24,0.25)';
+    cx.fill();
+    cx.strokeStyle=isVis?'#fff':'rgba(255,255,255,0.5)'; cx.lineWidth=1.5; cx.stroke();
+
+    // Number
+    const nx2=Math.round(x), ny2=Math.round(y);
+    cx.font=`bold ${isCur?10:9}px Georgia`;
+    cx.fillStyle=isVis?'#fff':'rgba(140,30,20,0.8)';
+    cx.textAlign='center'; cx.textBaseline='middle';
+    cx.fillText(i+1,nx2,ny2);
+    cx.textBaseline='alphabetic';
+
+    // Place-name label — only shown when relevant
+    if (isCur||isNext||(isVis&&i>=g.cur-2)){
+      const label=s.name.split('—')[0].trim().split(' — ')[0];
+      cx.font=isCur?'bold 11px Georgia':'10px Georgia';
+      cx.textAlign='center';
+      const above=s.lat>40||s.lat<34;
+      const lx=Math.round(x), ly=Math.round(y+(above?-16:17));
+      cx.shadowColor='rgba(240,228,185,0.98)'; cx.shadowBlur=6;
+      cx.fillStyle=isCur?'#7a1208':isVis?'#5a2808':'#3a2208';
+      cx.fillText(label,lx,ly);
+      cx.shadowBlur=0;
+    }
+  });
+
+  // Ship
+  const [sx2,sy2]=pt(g.shipLon,g.shipLat);
+  drawShip(sx2,sy2-4);
+
+  // Subtle vignette
+  const v=cx.createRadialGradient(W/2,H/2,H*0.3,W/2,H/2,H*0.85);
+  v.addColorStop(0,'rgba(0,0,0,0)'); v.addColorStop(1,'rgba(0,0,0,0.22)');
+  cx.fillStyle=v; cx.fillRect(0,0,W,H);
+}
+
+// ── CALYPSO SCENE ────────────────────────────────────────────
+
+function renderScene(t) {
+  cx.clearRect(0,0,W,H);
+  const HZ = H * 0.61; // horizon y
+
+  // Sky
+  const sky=cx.createLinearGradient(0,0,0,HZ);
+  sky.addColorStop(0,'#060318'); sky.addColorStop(0.45,'#0c0828');
+  sky.addColorStop(0.85,'#150d38'); sky.addColorStop(1,'#1c1245');
+  cx.fillStyle=sky; cx.fillRect(0,0,W,HZ);
+
+  // Stars
+  STARS.forEach(s=>{
+    const twinkle=0.5+0.5*Math.sin(t*0.0008+s.p);
+    const alpha=s.b*twinkle;
+    if (s.r>1.0){
+      const sg=cx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*3.5);
+      sg.addColorStop(0,`rgba(210,218,255,${alpha})`);
+      sg.addColorStop(1,'rgba(180,190,255,0)');
+      cx.fillStyle=sg; cx.beginPath(); cx.arc(s.x,s.y,s.r*3.5,0,Math.PI*2); cx.fill();
+    }
+    cx.beginPath(); cx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    cx.fillStyle=`rgba(225,232,255,${alpha})`; cx.fill();
+  });
+
+  // Moon — upper left
+  const moonX=W*0.15, moonY=H*0.15, moonR=36;
+  const mHalo=cx.createRadialGradient(moonX,moonY,moonR,moonX,moonY,moonR*5);
+  mHalo.addColorStop(0,'rgba(255,240,185,0.2)');
+  mHalo.addColorStop(0.4,'rgba(255,225,160,0.07)');
+  mHalo.addColorStop(1,'rgba(255,200,120,0)');
+  cx.fillStyle=mHalo; cx.beginPath(); cx.arc(moonX,moonY,moonR*5,0,Math.PI*2); cx.fill();
+  const mGrad=cx.createRadialGradient(moonX-moonR*0.3,moonY-moonR*0.3,moonR*0.08,moonX,moonY,moonR);
+  mGrad.addColorStop(0,'#fffde8'); mGrad.addColorStop(0.65,'#f8f0cc'); mGrad.addColorStop(1,'#e8d898');
+  cx.shadowColor='rgba(255,238,175,0.7)'; cx.shadowBlur=22;
+  cx.fillStyle=mGrad; cx.beginPath(); cx.arc(moonX,moonY,moonR,0,Math.PI*2); cx.fill();
+  cx.shadowBlur=0;
+
+  // Sea
+  const sea2=cx.createLinearGradient(0,HZ,0,H);
+  sea2.addColorStop(0,'#0b1d3a'); sea2.addColorStop(0.6,'#081428'); sea2.addColorStop(1,'#050c1c');
+  cx.fillStyle=sea2; cx.fillRect(0,HZ,W,H-HZ);
+
+  // Moon reflection
+  const phase=t*0.0016;
+  const refG=cx.createLinearGradient(moonX,HZ,moonX,H);
+  refG.addColorStop(0,'rgba(255,238,165,0.32)'); refG.addColorStop(0.45,'rgba(255,218,140,0.14)'); refG.addColorStop(1,'rgba(255,200,100,0.04)');
+  cx.beginPath(); cx.moveTo(moonX-6,HZ);
+  for (let y=HZ;y<=H;y+=3){
+    const prog=(y-HZ)/(H-HZ), wid=10+prog*55, wobble=Math.sin(y*0.055+phase)*7*prog;
+    cx.lineTo(moonX+wobble+wid,y);
+  }
+  for (let y=H;y>=HZ;y-=3){
+    const prog=(y-HZ)/(H-HZ), wid=10+prog*55, wobble=Math.sin(y*0.055+phase)*7*prog;
+    cx.lineTo(moonX+wobble-wid,y);
+  }
+  cx.closePath(); cx.fillStyle=refG; cx.fill();
+
+  // Waves
+  for (let layer=0;layer<4;layer++){
+    const baseY=HZ+3+layer*22, amp=4.5-layer*0.8, spd=0.0009*(1+layer*0.4);
+    cx.beginPath(); cx.moveTo(0,baseY);
+    for (let x=0;x<=W;x+=4){ cx.lineTo(x,baseY+amp*Math.sin(x*0.017+t*spd)); }
+    cx.lineTo(W,H); cx.lineTo(0,H); cx.closePath();
+    cx.fillStyle=`rgba(18,48,98,${0.28-layer*0.05})`; cx.fill();
+    cx.beginPath(); cx.moveTo(0,baseY);
+    for (let x=0;x<=W;x+=4){ cx.lineTo(x,baseY+amp*Math.sin(x*0.017+t*spd)); }
+    cx.strokeStyle=`rgba(100,165,240,${0.07-layer*0.012})`; cx.lineWidth=1; cx.stroke();
+  }
+
+  // Shore strip
+  cx.beginPath();
+  cx.moveTo(W*0.18,HZ+14); cx.bezierCurveTo(W*0.38,HZ+4,W*0.6,HZ+3,W*0.78,HZ+10);
+  cx.bezierCurveTo(W*0.88,HZ+16,W,HZ+20,W,HZ+24);
+  cx.lineTo(W,HZ); cx.lineTo(W*0.18,HZ); cx.closePath();
+  const shore=cx.createLinearGradient(0,HZ,0,HZ+24);
+  shore.addColorStop(0,'rgba(148,118,62,0.55)'); shore.addColorStop(1,'rgba(70,55,28,0.3)');
+  cx.fillStyle=shore; cx.fill();
+
+  drawCalypsoImage(t, HZ);
+
+  // Horizon haze
+  const haze=cx.createLinearGradient(0,HZ-28,0,HZ+28);
+  haze.addColorStop(0,'rgba(35,18,75,0)'); haze.addColorStop(0.5,'rgba(35,18,75,0.13)'); haze.addColorStop(1,'rgba(35,18,75,0)');
+  cx.fillStyle=haze; cx.fillRect(0,HZ-28,W,56);
+
+  // Vignette
+  const vig=cx.createRadialGradient(W/2,H*0.44,H*0.18,W/2,H*0.44,H*0.78);
+  vig.addColorStop(0,'rgba(0,0,0,0)'); vig.addColorStop(1,'rgba(0,0,0,0.48)');
+  cx.fillStyle=vig; cx.fillRect(0,0,W,H);
+}
+
+function drawCalypsoImage(t, HZ) {
+  if (!calypsoImg.complete || !calypsoImg.naturalWidth) return;
+
+  const imgW = calypsoImg.naturalWidth;
+  const imgH = calypsoImg.naturalHeight;
+
+  // Scale image to fill canvas height, position right-of-center
+  const scale = H / imgH;
+  const dw = imgW * scale;
+  const dh = H;
+  const dx = W * 0.5 - dw * 0.38; // nudge left so face is near center
+
+  // Divine aura behind her
+  const calX = dx + dw * 0.5;
+  const aura = cx.createRadialGradient(calX, H*0.35, 20, calX, H*0.38, 260);
+  aura.addColorStop(0, 'rgba(255,210,100,0.18)');
+  aura.addColorStop(0.45, 'rgba(200,160,60,0.06)');
+  aura.addColorStop(1, 'rgba(180,120,40,0)');
+  cx.fillStyle=aura; cx.beginPath(); cx.ellipse(calX,H*0.36,240,300,0,0,Math.PI*2); cx.fill();
+
+  // Draw image
+  cx.save();
+  cx.drawImage(calypsoImg, dx, 0, dw, dh);
+
+  // Fade left edge into sky — gradient mask
+  const fadeL = cx.createLinearGradient(dx, 0, dx + dw*0.28, 0);
+  fadeL.addColorStop(0, 'rgba(8,4,24,1)');
+  fadeL.addColorStop(1, 'rgba(8,4,24,0)');
+  cx.fillStyle=fadeL; cx.fillRect(0, 0, dx + dw*0.28, H);
+
+  // Fade right edge
+  const fadeR = cx.createLinearGradient(dx + dw*0.72, 0, dx + dw, 0);
+  fadeR.addColorStop(0, 'rgba(8,4,24,0)');
+  fadeR.addColorStop(1, 'rgba(8,4,24,1)');
+  cx.fillStyle=fadeR; cx.fillRect(dx + dw*0.72, 0, W-(dx+dw*0.72), H);
+
+  // Fade bottom into sea
+  const fadeB = cx.createLinearGradient(0, HZ*0.72, 0, H);
+  fadeB.addColorStop(0, 'rgba(8,4,24,0)');
+  fadeB.addColorStop(0.6, 'rgba(8,10,28,0.82)');
+  fadeB.addColorStop(1, 'rgba(5,8,20,1)');
+  cx.fillStyle=fadeB; cx.fillRect(0, HZ*0.72, W, H - HZ*0.72);
+
+  // Fade top (sky bleeds through above her head)
+  const fadeT = cx.createLinearGradient(0, 0, 0, H*0.12);
+  fadeT.addColorStop(0, 'rgba(6,3,18,1)');
+  fadeT.addColorStop(1, 'rgba(6,3,18,0)');
+  cx.fillStyle=fadeT; cx.fillRect(0, 0, W, H*0.12);
+
+  cx.restore();
+
+  // Floating light motes
+  for (let m=0;m<8;m++){
+    const ang=(m/8)*Math.PI*2+t*0.00028;
+    const rad=110+Math.sin(t*0.0004+m)*18;
+    const mx2=calX+Math.cos(ang)*rad*0.9;
+    const my2=H*0.38+Math.sin(ang)*rad*0.55;
+    if (my2 < HZ-4){
+      const ma=0.3+0.2*Math.sin(t*0.0009+m*1.4);
+      cx.beginPath(); cx.arc(mx2,my2,1.8,0,Math.PI*2);
+      cx.fillStyle=`rgba(255,220,120,${ma})`; cx.fill();
+    }
+  }
+}
+
+
+// ── SCENE LOOP ────────────────────────────────────────────────
+
+function startScene() {
+  g.mode='scene';
+  const t0=performance.now();
+  function loop(now){
+    if (g.mode!=='scene') return;
+    renderScene(now-t0);
+    g.sceneRaf=requestAnimationFrame(loop);
+  }
+  g.sceneRaf=requestAnimationFrame(loop);
+}
+
+function stopScene(){
+  g.mode='map';
+  if (g.sceneRaf){ cancelAnimationFrame(g.sceneRaf); g.sceneRaf=null; }
+}
+
+// ── GAME LOGIC ────────────────────────────────────────────────
+
+function advance(){
+  if (g.cur>=stops.length-1) return;
+  g.cur++;
+  g.shipLon=stops[g.cur].lon;
+  g.shipLat=stops[g.cur].lat;
+  applyStop(stops[g.cur]);
+  if (stops[g.cur].hasScene){
+    setTimeout(()=>{ startScene(); updatePanel(); }, 150);
+  } else {
+    renderMap(); updatePanel();
+  }
+}
+
+function handleChoice(id){
+  if (id==='immortality'){
+    stopScene(); g.mode='end';
+    renderMap();
+    document.getElementById('loc-name').textContent='Ogygia — You stay.';
+    document.getElementById('myth').textContent='You accept. Calypso weeps — not from sorrow, but from joy. She leads you back into her cavern where a great fire of fragrant cedar burns always. You stop counting years. The sea outside grows quiet. Ithaca fades. Penelope fades. Somewhere a son grows old waiting for a father who will not come. The gods do not speak of you again. You are no longer a story. You are simply, at last, content. The Odyssey does not end here — it simply never happens.';
+    document.getElementById('btns').innerHTML='';
+    document.getElementById('progress').textContent='An ending not in Homer.';
+  } else {
+    stopScene();
+    document.getElementById('myth').textContent='You refuse. You have refused every morning for seven years — sitting on the rocks, weeping toward the empty horizon. The gods finally compel her. Hermes arrives. Calypso obeys with quiet grief. She helps you build a raft, gives you provisions and a fair wind, and stands on the shore as you sail away. She does not call after you. She loved you enough to let you go.';
+    const nxt=stops[g.cur+1].name.split('—')[0].trim();
+    document.getElementById('btns').innerHTML=`<button class="btn" onclick="advance()">Sail for ${nxt} →</button>`;
+    document.getElementById('progress').textContent=`Stop ${g.cur+1} of ${stops.length}`;
+    renderMap();
+  }
+}
+
+// ── UI ────────────────────────────────────────────────────────
+
+function updatePanel(){
+  const s=stops[g.cur];
+  document.getElementById('loc-name').textContent=s.name;
+  document.getElementById('s-crew').textContent=g.crew<=1?'You alone':g.crew;
+  document.getElementById('s-ships').textContent=g.ships===0?'A raft':g.ships;
+  document.getElementById('s-years').textContent=g.years<1?'< 1':Math.floor(g.years);
+
+  const btns=document.getElementById('btns');
+
+  if (g.mode==='scene' && s.choices){
+    document.getElementById('myth').textContent=s.scenePrompt||s.text;
+    btns.innerHTML=s.choices.map(c=>
+      `<button class="btn btn-gold" onclick="handleChoice('${c.id}')">${c.label}</button>`
+    ).join('');
+  } else if (g.cur>=stops.length-1){
+    document.getElementById('myth').textContent=s.text;
+    btns.innerHTML='<button class="btn" disabled>You are home.</button>';
+  } else {
+    document.getElementById('myth').textContent=s.text;
+    const nxt=stops[g.cur+1].name.split('—')[0].trim();
+    btns.innerHTML=`<button class="btn" onclick="advance()">Sail for ${nxt} →</button>`;
+  }
+  document.getElementById('progress').textContent=`Stop ${g.cur+1} of ${stops.length}`;
+
+  const quoteEl=document.getElementById('quote');
+  if (s.quote){
+    quoteEl.innerHTML=s.quote;
+    quoteEl.classList.add('visible');
+  } else {
+    quoteEl.classList.remove('visible');
+    quoteEl.innerHTML='';
+  }
+
+  const loreEl=document.getElementById('lore');
+  if (s.lore){
+    loreEl.innerHTML=s.lore;
+    loreEl.classList.add('visible');
+  } else {
+    loreEl.classList.remove('visible');
+    loreEl.innerHTML='';
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+renderMap();
+updatePanel();
+</script>
+</body>
+</html>
